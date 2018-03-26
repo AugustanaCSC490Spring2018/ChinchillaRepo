@@ -1,4 +1,4 @@
-package com.example.angelicagarcia16.chinchillachat;
+package com.example.chinchillas.chinchillachat;
 
 import org.junit.Test;
 

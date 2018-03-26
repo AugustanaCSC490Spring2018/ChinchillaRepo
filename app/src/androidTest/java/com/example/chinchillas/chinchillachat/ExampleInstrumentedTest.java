@@ -1,4 +1,4 @@
-package com.example.angelicagarcia16.chinchillachat;
+package com.example.chinchillas.chinchillachat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
