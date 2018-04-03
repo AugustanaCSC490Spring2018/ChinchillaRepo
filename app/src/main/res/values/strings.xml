@@ -12,4 +12,17 @@
     <string name="error_field_required">This field is required</string>
     <string name="action_find_a_friend">Find a Friend</string>
     <string name="action_chat_now">Chat Now!</string>
+    <string name="looking_for">I\'m looking for . . .</string>
+    <string name="talk_about">I want to talk about . . . </string>
+    <string name="find_match">Find a Match</string>
+    <string-array name="people_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

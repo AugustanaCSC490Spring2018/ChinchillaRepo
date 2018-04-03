@@ -74,12 +74,10 @@
 
             <Button
                 android:id="@+id/user_sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:textAllCaps="false"
                 android:layout_height="wrap_content"
-                android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:text="@string/action_sign_in" />
 
         </LinearLayout>
     </ScrollView>
