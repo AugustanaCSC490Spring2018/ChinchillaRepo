@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+        <!-- "Title" of Activity -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/matches_title"
+            android:text="@string/available_matches"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="30dp" />
+
+        <!-- Certain number of buttons depending on how many matches . . .  -->
+
+
+
+        <!-- Button to begin a chat with selected user -->
+
+            <Button
+                android:id="@+id/start_chat_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:text="@string/action_start_chat"
+                android:textAllCaps="false" />
+
+</RelativeLayout>

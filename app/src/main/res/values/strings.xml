@@ -4,9 +4,13 @@
     <!-- Strings related to login -->
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_confirm_email">Confirm E-mail</string>
     <string name="action_sign_in">Sign In or Register</string>
+    <string name="action_register">Register Now</string>
     <string name="action_sign_in_short">Sign In</string>
-    <string name="error_invalid_email">This username is invalid</string>
+    <string name="error_invalid_username">This username is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -15,6 +19,8 @@
     <string name="looking_for">I\'m looking for . . .</string>
     <string name="talk_about">I want to talk about . . . </string>
     <string name="find_match">Find a Match</string>
+    <string name="available_matches">Available matches:</string>
+    <string name="action_start_chat">Start Chatting</string>
     <string-array name="people_array">
         <item>Mercury</item>
         <item>Venus</item>

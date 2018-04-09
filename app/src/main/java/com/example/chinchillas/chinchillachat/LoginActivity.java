@@ -20,13 +20,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mUsernameSignInButton;
 
     private FirebaseAuth firebaseAuth;
 
@@ -66,10 +65,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        mUsernameView = (EditText) findViewById(R.id.username);
+        mUsernameView = findViewById(R.id.username);
         //populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -81,8 +80,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.user_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        mUsernameSignInButton = findViewById(R.id.user_sign_in_button);
+        mUsernameSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
@@ -173,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView = mUsernameView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mUsernameView.setError(getString(R.string.error_invalid_email));
+            mUsernameView.setError(getString(R.string.error_invalid_username));
             focusView = mUsernameView;
             cancel = true;
         }
@@ -188,6 +187,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+            //open next activity?
+          /*  mUsernameSignInButton.setOnClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view) {
+                    Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                }
+            });*/
         }
     }
 
