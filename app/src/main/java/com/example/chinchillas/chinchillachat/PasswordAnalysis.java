@@ -9,15 +9,27 @@ import android.support.annotation.NonNull;
 public class PasswordAnalysis {
 
     public static final long NUM_ATTEMPTS_PER_SECOND = 7000000000L;
+    public static final long NUM_SECONDS_PER_MINUTE = 60;
+    public static final long NUM_SECONDS_PER_HOUR = NUM_SECONDS_PER_MINUTE * 60;
+    public static final long NUM_SECONDS_PER_DAY = NUM_SECONDS_PER_HOUR * 24;
+    public static final long NUM_SECONDS_PER_YEAR = NUM_SECONDS_PER_DAY * 365; // assume 365 days per year
+    public static final long NUM_SECONDS_PER_DECADE = NUM_SECONDS_PER_YEAR * 10;
+    public static final long NUM_SECONDS_PER_CENTURY = NUM_SECONDS_PER_DECADE * 10;
+    public static final long NUM_SECONDS_PER_MILLENNIUM = NUM_SECONDS_PER_CENTURY * 10;
+
 
     public static void main(String[] args) {
         String pass1 = "test";
         String pass2 = "This should 12 be a STRONG password.";
         System.out.println(pass1);
-        System.out.println(passwordComplexity(pass1));
+        long pass1Time = passwordComplexity(pass1);
+        System.out.println(pass1Time);
+        System.out.println(timeTaken(pass1Time));
         System.out.println();
         System.out.println(pass2);
-        System.out.println(passwordComplexity(pass2));
+        long pass2Time = passwordComplexity(pass2);
+        System.out.println(pass2Time);
+        System.out.println(timeTaken(pass2Time));
     }
 
     /**
@@ -36,6 +48,7 @@ public class PasswordAnalysis {
         boolean num = false; // contains a number
         boolean symbol = false; // contains a printable ASCII character
         boolean ext = false; // contains an extended character
+        int numPossibilities = 0; // possibilities for each type of character
         for (int i=0; i<length; i++) {
             if (alphaLower && alphaUpper && num && symbol && ext) { // all cases covered, no need to continue checking
                 break;
@@ -55,20 +68,21 @@ public class PasswordAnalysis {
         }
 
         if (alphaLower) {
-            complexity += Math.pow(26, length);
+            numPossibilities += 26;
         }
         if (alphaUpper) {
-            complexity += Math.pow(26, length);
+            numPossibilities += 26;
         }
         if (num) {
-            complexity += Math.pow(10, length);
+            numPossibilities += 10;
         }
         if (symbol) {
-            complexity += Math.pow(128 - 26 - 26 - 10, length);
+            numPossibilities += 128 - 26 - 26 - 10;
         }
         if (ext) {
-            complexity += Math.pow(256 - 128, length);
+            numPossibilities += 256 - 128;
         }
+        complexity = Math.pow(numPossibilities, length);
         return (long) (complexity / NUM_ATTEMPTS_PER_SECOND);
     }
 
@@ -80,13 +94,25 @@ public class PasswordAnalysis {
      */
     @NonNull
     public static String timeTaken (long time) {
-        int seconds = (int) (time % 60);
-        int minutes = (int) (time % (60 * 60) / 60);
-        int hours = (int) (time % (60 * 60 * 24) / (60 * 60));
-        int days = (int) (time % (60 * 60 * 24 * 365) / (60 * 60 * 24));
-        int years = (int) (time / (60 * 60 * 24 * 365));
+        int seconds = (int) (time % NUM_SECONDS_PER_MINUTE);
+        int minutes = (int) (time % NUM_SECONDS_PER_HOUR / NUM_SECONDS_PER_MINUTE);
+        int hours = (int) (time % NUM_SECONDS_PER_DAY / NUM_SECONDS_PER_HOUR);
+        int days = (int) (time % NUM_SECONDS_PER_YEAR / NUM_SECONDS_PER_DAY);
+        int years = (int) (time % NUM_SECONDS_PER_DECADE / NUM_SECONDS_PER_YEAR);
+        int decades = (int) (time % NUM_SECONDS_PER_CENTURY / NUM_SECONDS_PER_DECADE);
+        int centuries = (int) (time % NUM_SECONDS_PER_MILLENNIUM / NUM_SECONDS_PER_CENTURY);
+        int millennia = (int) (time / NUM_SECONDS_PER_MILLENNIUM);
 
         StringBuilder sb = new StringBuilder();
+        if (millennia > 0) {
+            sb.append(millennia + " millennia ");
+        }
+        if (centuries > 0) {
+            sb.append(centuries + " centuries ");
+        }
+        if (decades > 0) {
+            sb.append(decades + " decades ");
+        }
         if (years > 0) {
             sb.append(years + " years ");
         }
