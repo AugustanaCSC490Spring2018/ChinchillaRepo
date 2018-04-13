@@ -5,22 +5,18 @@
     tools:context=".LoginActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
         android:title="@string/ui_menu_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_blockedusers"
-        android:orderInCategory="100"
         android:title="@string/ui_menu_blocked_users"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_nightmode"
-        android:orderInCategory="100"
         android:title="@string/ui_menu_nightmode"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
-        android:orderInCategory="100"
         android:title="@string/ui_menu_logout"
         app:showAsAction="never" />
 </menu>
