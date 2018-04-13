@@ -3,6 +3,7 @@ package com.example.chinchillas.chinchillachat;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -18,6 +19,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -357,30 +359,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
 
-/*        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            //Inflate the menu;
-            // this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu, menu);
-            return true;
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Inflate the menu;
+        // this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_logout:
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;
-            }
-
-            return super.onOptionsItemSelected(item);
-        }*/
-
+            case R.id.action_settings:
+                //  startActivity(new Intent(getApplicationContext(), .class));
+                return true;
+            case R.id.action_blockedusers:
+                //   startActivity(new Intent(getApplicationContext(), .class));
+                return true;
+            case R.id.action_nightmode:
+                // switch themes
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
