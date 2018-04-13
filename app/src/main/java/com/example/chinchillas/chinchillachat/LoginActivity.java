@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
@@ -387,7 +388,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //   startActivity(new Intent(getApplicationContext(), .class));
                 return true;
             case R.id.action_nightmode:
-                // switch themes
+                //setTheme(R.style.NightTheme);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

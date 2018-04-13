@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- Night mode -->
+    <color name="colorPrimaryDarkNight">#FF212121</color>
+    <color name="colorPrimaryNight">#FF000000</color>
+    <color name="colorAccentNight">#FF80CBC4</color>
+    <color name="colorBGNight">#FF303030</color>
 </resources>
