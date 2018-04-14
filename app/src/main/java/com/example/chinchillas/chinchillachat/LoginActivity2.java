@@ -8,6 +8,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -18,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class LoginActivity2 extends AppCompatActivity {
-
-
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -57,7 +56,7 @@ public class LoginActivity2 extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                attemptLogin();
+                attemptLogin();
             }
         });
 
@@ -67,24 +66,11 @@ public class LoginActivity2 extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    /**
-     * Require augustana.edu emails.
-     *
-     * @param email
-     * @return true if this is an augustana.edu email, false otherwise
-     */
-    private boolean isEmailValid(String email) {
-        return email.endsWith("@augustana.edu");
+    public boolean attemptLogin() {
+        String email = mUsernameView.getText().toString().trim();
+        String password = mPasswordView.getText().toString();
+        return false;
     }
 
-    /**
-     * Require "secure enough" passwords. A password is deemed to be "secure enough"
-     *
-     *
-     * @param password
-     * @return true if the password is "secure enough", false otherwise
-     */
-    private boolean isPasswordValid(String password) {
-        return PasswordAnalysis.passwordComplexity(password) > 86400; // password will take more than 1 day to crack
-    }
+
 }
