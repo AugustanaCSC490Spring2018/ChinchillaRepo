@@ -192,14 +192,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
-            //open next activity?
-          /*  mUsernameSignInButton.setOnClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view) {
-                    Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-                    startActivity(intent);
-                }
-            });*/
+
+            startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+
         }
     }
 
