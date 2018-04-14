@@ -62,6 +62,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         if(isUsernameTaken(user)){
             sb.append("Username already taken.\n");
         }
+//        if(firebaseAuth.)
         if(!isEmailValid(mail)){
             sb.append("Must use an @augustana.edu email.\n");
         }
@@ -114,7 +115,7 @@ public class CreateAccountActivity extends AppCompatActivity {
      * @return true if the password is "secure enough", false otherwise
      */
     private boolean isPasswordValid(String password) {
-        return PasswordAnalysis.passwordComplexity(password) > 86400; // password will take more than 1 day to crack
+        return PasswordAnalysis.passwordComplexity(password) > PasswordAnalysis.NUM_SECONDS_PER_DAY; // password will take more than 1 day to crack
     }
 
     /**
