@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_username"
                     android:inputType="text"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -61,7 +61,7 @@
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:hint="@string/prompt_password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
