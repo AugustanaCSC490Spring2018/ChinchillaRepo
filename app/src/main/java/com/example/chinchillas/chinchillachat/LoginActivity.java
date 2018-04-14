@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
             }
         });
 
@@ -194,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
 
+            startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
 
         }
     }
