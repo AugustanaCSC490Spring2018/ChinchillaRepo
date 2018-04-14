@@ -6,4 +6,14 @@ package com.example.chinchillas.chinchillachat.datamodel;
 
 public class Message {
     public String message;
+    public String senderID;
+
+    /**
+     * @param message the message
+     * @param senderID
+     */
+    public Message(String message, String senderID) {
+        this.message = message;
+        this.senderID = senderID;
+    }
 }
