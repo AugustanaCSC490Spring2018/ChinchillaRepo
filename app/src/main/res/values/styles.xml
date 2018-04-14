@@ -10,10 +10,10 @@
 
     <!-- Night mode theme -->
     <style name="NightTheme" parent="Theme.AppCompat">
-        <item name="colorPrimaryNight">@color/colorPrimaryNight</item>
-        <item name="colorPrimaryDarkNight">@color/colorPrimaryDarkNight</item>
-        <item name="colorAccentNight">@color/colorAccentNight</item>
-        <item name="colorBGNight">@color/colorBGNight</item>
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <!--<item name="colorBGNight">@color/colorBGNight</item>-->
     </style>
 
 
