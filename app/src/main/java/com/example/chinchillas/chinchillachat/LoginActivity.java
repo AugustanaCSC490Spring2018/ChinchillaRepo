@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -27,6 +28,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -61,13 +63,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private Button mUsernameSignInButton;
+    private boolean nightMode;
 
     private FirebaseAuth firebaseAuth;
+
+    // used for theme
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppTheme);
+        pref = getSharedPreferences("nightmode", MODE_PRIVATE);
+        nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
+        if(nightMode) {
+            setTheme(R.style.NightTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
@@ -383,7 +395,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //   startActivity(new Intent(getApplicationContext(), .class));
                 return true;
             case R.id.action_nightmode:
-                //setTheme(R.style.NightTheme);
+                nightMode = !nightMode;
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("nightmode", String.valueOf(nightMode));
+                editor.commit();
+                Toast.makeText(this, "Please restart app to " + (nightMode ? "enable" : "disable") + " night mode.", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
