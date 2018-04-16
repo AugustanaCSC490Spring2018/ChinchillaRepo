@@ -30,7 +30,13 @@
     <string name="action_start_chat">Start Chatting</string>
     <string name="action_my_chats">My Chats</string>
 
+    <string name="new_conversation_btn">New Chat</string>
+
     <string name="enter_message_hint">Enter Message</string>
+
+    <!-- Strings related to new chats -->
+    <string name="real_username">Username</string>
+    <string name="pseudonym">Pseudonym</string>
 
     <string-array name="people_array">
         <item>Mercury</item>
