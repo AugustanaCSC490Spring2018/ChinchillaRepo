@@ -9,6 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.securepreferences.SecurePreferences;
+
 /**
  * This class extends AppCompatActivity and can be extended by any other activity.
  *
@@ -18,15 +21,36 @@ import android.widget.Toast;
 
 public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
-    // used for theme
-    protected SharedPreferences pref;
+    // used for theme, login
+    protected SecurePreferences pref;
+
+    protected SharedPreferences.Editor editor;
+
+//    This class uses SecurePreferences
+//    https://github.com/scottyab/secure-preferences
+//
+//     Copyright (C) 2013, Daniel Abraham, Scott Alexander-Bown
+//
+//     Licensed under the Apache License, Version 2.0 (the "License");
+//     you may not use this file except in compliance with the License.
+//     You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//     Unless required by applicable law or agreed to in writing, software
+//     distributed under the License is distributed on an "AS IS" BASIS,
+//     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//     See the License for the specific language governing permissions and
+//     limitations under the License.
+
 
     protected boolean nightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pref = getSharedPreferences("nightmode", MODE_PRIVATE);
+        pref = new SecurePreferences(getApplicationContext());
+        editor = pref.edit();
         nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
         if (nightMode) {
             setTheme(R.style.NightTheme);
@@ -52,6 +76,10 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_logout:
+                editor.remove("userid");
+                editor.commit();
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;
             case R.id.action_settings:
@@ -62,8 +90,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                 return true;
             case R.id.action_nightmode:
                 nightMode = !nightMode;
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("nightmode", String.valueOf(nightMode));
+                editor.putBoolean("nightmode", nightMode);
                 editor.commit();
                 Toast.makeText(this, "Please restart app to " + (nightMode ? "enable" : "disable") + " night mode.", Toast.LENGTH_LONG).show();
                 return true;

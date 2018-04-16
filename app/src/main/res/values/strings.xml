@@ -11,7 +11,7 @@
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="error_invalid_username">This username is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password">This password is not complex enough</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_find_a_friend">Find a Friend</string>
@@ -21,6 +21,9 @@
     <string name="find_match">Find a Match</string>
     <string name="available_matches">Available matches:</string>
     <string name="action_start_chat">Start Chatting</string>
+    <string name="verify">Please verify your account through the email we sent you and click Continue when you are done.</string>
+    <string name="btn_account_verified">Continue</string>
+    <string name="resend_verification">Resend Verification Email</string>
     <string-array name="people_array">
         <item>Mercury</item>
         <item>Venus</item>

@@ -1,5 +1,6 @@
 package com.example.chinchillas.chinchillachat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_createaccount);
+        setContentView(R.layout.activity_createaccount);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         passwordConfirm = findViewById(R.id.password_confirm);
@@ -85,6 +86,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
+                    editor.putString("userid", firebaseAuth.getCurrentUser().getUid());
                     verifyUser();
                 }
             });
@@ -93,8 +95,11 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 
     public void verifyUser() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        user.sendEmailVerification();
         Toast.makeText(CreateAccountActivity.this, "Please verify your account by following the link in the email we sent you.", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getApplicationContext(), VerifyAccountActivity.class);
+        intent.putExtra("username", username.getText().toString());
+        intent.putExtra("password", password.getText().toString());
+        startActivity(intent);
     }
 
     /**
@@ -103,7 +108,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      * @param email
      * @return true if this is an augustana.edu email, false otherwise
      */
-    private boolean isEmailValid(String email) {
+    public static boolean isEmailValid(String email) {
         return email.endsWith("@augustana.edu");
     }
 
@@ -114,7 +119,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      * @param password
      * @return true if the password is "secure enough", false otherwise
      */
-    private boolean isPasswordValid(String password) {
+    public static boolean isPasswordValid(String password) {
         return PasswordAnalysis.passwordComplexity(password) > PasswordAnalysis.NUM_SECONDS_PER_DAY; // password will take more than 1 day to crack
     }
 
@@ -122,7 +127,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      * @param username
      * @return true if the username is already in use, false otherwise
      */
-    private boolean isUsernameTaken(String username) {
+    public static boolean isUsernameTaken(String username) {
         return false;
     }
 
