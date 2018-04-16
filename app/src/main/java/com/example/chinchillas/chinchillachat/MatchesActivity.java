@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by angelicagarcia16 on 4/9/2018.
  */
 
-public class MatchesActivity extends AppCompatActivity {
+public class MatchesActivity extends ChinchillaChatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

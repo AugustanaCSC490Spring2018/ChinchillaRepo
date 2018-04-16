@@ -21,7 +21,7 @@ import android.widget.Toast;
 // features modifications from: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
 // and from: https://developer.android.com/guide/topics/ui/controls/spinner.html#SelectListener
 
-public class PreferencesActivity extends AppCompatActivity {
+public class PreferencesActivity extends ChinchillaChatActivity {
 
     Spinner spinner = (Spinner) findViewById(R.id.dropdown);
 

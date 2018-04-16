@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends ChinchillaChatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -63,23 +63,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private Button mUsernameSignInButton;
-    private boolean nightMode;
+    private Button mSignUpButton;
 
     private FirebaseAuth firebaseAuth;
-
-    // used for theme
-    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pref = getSharedPreferences("nightmode", MODE_PRIVATE);
-        nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
-        if(nightMode) {
-            setTheme(R.style.NightTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = findViewById(R.id.username);
@@ -102,6 +92,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        mSignUpButton = findViewById(R.id.user_register_button);
+        mSignUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CreateAccountActivity.class));
             }
         });
 
@@ -366,43 +363,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflate the menu;
-        // this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_logout:
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                return true;
-            case R.id.action_settings:
-                //  startActivity(new Intent(getApplicationContext(), .class));
-                return true;
-            case R.id.action_blockedusers:
-                //   startActivity(new Intent(getApplicationContext(), .class));
-                return true;
-            case R.id.action_nightmode:
-                nightMode = !nightMode;
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("nightmode", String.valueOf(nightMode));
-                editor.commit();
-                Toast.makeText(this, "Please restart app to " + (nightMode ? "enable" : "disable") + " night mode.", Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

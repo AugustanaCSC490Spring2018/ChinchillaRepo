@@ -10,7 +10,7 @@ import android.widget.Button;
  * Created by angelicagarcia16 on 3/28/2018.
  */
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends ChinchillaChatActivity {
 
     private Button findAFriendBtn;
     private Button chatNowBtn;

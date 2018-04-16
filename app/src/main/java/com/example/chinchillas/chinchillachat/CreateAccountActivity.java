@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by angelicagarcia16 on 4/9/2018.
  */
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends ChinchillaChatActivity {
     FirebaseAuth firebaseAuth;
 
     EditText username;
