@@ -35,4 +35,16 @@
         android:layout_marginTop="16dp"
         android:text="@string/action_chat_now"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/myChatsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/imageView"
+        android:layout_alignEnd="@id/imageView"
+        android:layout_below="@+id/chatNowButton"
+        android:layout_marginTop="16dp"
+        android:text="@string/action_my_chats"
+        android:textAllCaps="false" />
+
 </RelativeLayout>

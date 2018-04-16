@@ -16,6 +16,7 @@ public class MainMenuActivity extends ChinchillaChatActivity {
 
     private Button findAFriendBtn;
     private Button chatNowBtn;
+    private Button myChatsBtn;
 
     private FirebaseAuth firebaseAuth;
 
@@ -34,6 +35,14 @@ public class MainMenuActivity extends ChinchillaChatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainMenuActivity.this, PreferencesActivity.class));
+            }
+        });
+
+        myChatsBtn = findViewById(R.id.myChatsButton);
+        myChatsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ChatListActivity.class));
             }
         });
     }
