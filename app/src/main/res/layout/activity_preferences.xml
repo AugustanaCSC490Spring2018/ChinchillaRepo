@@ -51,7 +51,7 @@
         android:id="@+id/findMatchBtn"
         android:layout_below="@id/tagsET"
         android:layout_marginTop="120dp"
-        android:text="@string/find_match"
+        android:text="@string/action_find_match"
         android:textAllCaps="false"
         android:textSize="20dp"/>
 </RelativeLayout>

@@ -83,10 +83,10 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 return true;
             case R.id.action_settings:
-                //  startActivity(new Intent(getApplicationContext(), .class));
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 return true;
             case R.id.action_blockedusers:
-                //   startActivity(new Intent(getApplicationContext(), .class));
+                startActivity(new Intent(getApplicationContext(), BlockedUsersActivity.class));
                 return true;
             case R.id.action_nightmode:
                 nightMode = !nightMode;

@@ -19,19 +19,23 @@
     <string name="btn_account_verified">Continue</string>
     <string name="resend_verification">Resend Verification Email</string>
 
-
+    <!-- General textView and button strings -->
     <string name="error_field_required">This field is required</string>
     <string name="action_find_a_friend">Find a Friend</string>
     <string name="action_chat_now">Chat Now!</string>
     <string name="looking_for">I\'m looking for . . .</string>
     <string name="talk_about">I want to talk about . . . </string>
-    <string name="find_match">Find a Match</string>
+    <string name="action_find_match">Find a Match</string>
     <string name="available_matches">Available matches:</string>
     <string name="action_start_chat">Start Chatting</string>
     <string name="action_my_chats">My Chats</string>
+    <string name="blocked_users_title">Blocked Users</string>
+    <string name="settings_title">Settings</string>
+    <string name="action_unblock">Unblock</string>
 
     <string name="enter_message_hint">Enter Message</string>
 
+    <!-- will see what pops up in the spinner ... or doesn't? -->
     <string-array name="people_array">
         <item>Mercury</item>
         <item>Venus</item>
@@ -48,4 +52,6 @@
     <string name="ui_menu_blocked_users">Blocked users</string>
     <string name="ui_menu_nightmode">Night mode</string>
     <string name="ui_menu_logout">Log out</string>
+
+
 </resources>
