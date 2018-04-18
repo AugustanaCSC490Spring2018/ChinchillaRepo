@@ -1,17 +1,41 @@
 package com.example.chinchillas.chinchillachat;
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 
 /**
  * Created by angelicagarcia16 on 4/16/2018.
  */
 
+/**
+ * This class defines the Settings activity in the application.
+ * It should have options
+ */
+
 public class SettingsActivity extends ChinchillaChatActivity {
+
+    private boolean notifPref;
+    private CheckBoxPreference checkBoxPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+
+        notifPref = pref.getBoolean("checkboxPref", true);
+
+        checkBoxPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue.toString().equals("true")) {
+                    // let app do push notifications
+                } else {
+                    // turn off push notifications
+                }
+                return true;
+            }
+        });
     }
 }

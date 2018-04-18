@@ -6,22 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/blockedusersTV"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:textSize="24dp"
-        android:text="@string/blocked_users_title"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/blockedusersTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textSize="24dp"
+            android:text="@string/blocked_users_title"/>
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/blockedList"
-        android:layout_below="@id/blockedusersTV"
-        android:layout_marginTop="@dimen/activity_vertical_margin">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/blockedList"
+            android:layout_below="@id/blockedusersTV"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
-    </ListView>
-
+        </ListView>
+    </ScrollView>
 </RelativeLayout>
