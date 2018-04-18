@@ -48,6 +48,19 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // PREVENT USER FROM ACCESSING APP IF LOGGED OUT
+        if(!(this instanceof LoginActivity || this instanceof CreateAccountActivity || this instanceof VerifyAccountActivity)){
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            if(firebaseAuth.getCurrentUser() == null){ // user logged out
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+
+            // FORCE EMAIL VERIFICATION
+            } else if(!firebaseAuth.getCurrentUser().isEmailVerified()){
+                startActivity(new Intent(getApplicationContext(), VerifyAccountActivity.class));
+                finish();
+            }
+        }
         super.onCreate(savedInstanceState);
         pref = new SecurePreferences(getApplicationContext());
         editor = pref.edit();
@@ -65,6 +78,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         // this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        // TODO: Adapt for logout option being visible appropriately...
         return true;
     }
 
@@ -76,11 +90,13 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_logout:
+                // TODO: Add sassy message if they try to click while logged out.
                 editor.remove("userid");
                 editor.commit();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
                 return true;
             case R.id.action_settings:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
