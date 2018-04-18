@@ -25,10 +25,6 @@ public class MainMenuActivity extends ChinchillaChatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() == null){
-            startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
-            finish();
-        }
         setContentView(R.layout.activity_mainmenu);
 
         findAFriendBtn = findViewById(R.id.findAFriendButton);

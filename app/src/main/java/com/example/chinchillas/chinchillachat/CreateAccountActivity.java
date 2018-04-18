@@ -3,13 +3,14 @@ package com.example.chinchillas.chinchillachat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,22 +23,32 @@ import com.google.firebase.auth.FirebaseUser;
 public class CreateAccountActivity extends ChinchillaChatActivity {
     FirebaseAuth firebaseAuth;
 
-    EditText username;
-    EditText password;
-    EditText passwordConfirm;
-    EditText email;
-    EditText emailConfirm;
+    EditText usernameET;
+    EditText passwordET;
+    EditText passwordConfirmET;
+    EditText emailET;
+    EditText emailConfirmET;
     Button signInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createaccount);
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        passwordConfirm = findViewById(R.id.password_confirm);
-        email = findViewById(R.id.email);
-        emailConfirm = findViewById(R.id.email_confirm);
+        usernameET = findViewById(R.id.email);
+        passwordET = findViewById(R.id.password);
+        passwordConfirmET = findViewById(R.id.password_confirm);
+        emailET = findViewById(R.id.email);
+        emailConfirmET = findViewById(R.id.email_confirm);
+
+        String email = getIntent().getStringExtra("email");
+        if(email != null) {
+            emailET.setText(email);
+        }
+        String password = getIntent().getStringExtra("password");
+        if(password != null) {
+            passwordET.setText(password);
+        }
+
         signInButton = findViewById(R.id.user_sign_in_button);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -53,17 +64,16 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 
 
     public void registerUser() {
-        String user = username.getText().toString();
-        String pass = password.getText().toString();
-        String pass2 = passwordConfirm.getText().toString();
-        String mail = email.getText().toString().toLowerCase();
-        String mail2 = emailConfirm.getText().toString().toLowerCase();
+        String user = usernameET.getText().toString();
+        String pass = passwordET.getText().toString();
+        String pass2 = passwordConfirmET.getText().toString();
+        String mail = emailET.getText().toString().toLowerCase();
+        String mail2 = emailConfirmET.getText().toString().toLowerCase();
 
         StringBuilder sb = new StringBuilder();
         if(isUsernameTaken(user)){
             sb.append("Username already taken.\n");
         }
-//        if(firebaseAuth.)
         if(!isEmailValid(mail)){
             sb.append("Must use an @augustana.edu email.\n");
         }
@@ -82,23 +92,24 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         } else {
             // Showing progress dialog at user registration time.
             Toast.makeText(this, "Registering. Please Wait.", Toast.LENGTH_LONG).show();
-            firebaseAuth.createUserWithEmailAndPassword(mail, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            firebaseAuth.createUserWithEmailAndPassword(mail, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+                public void onSuccess(AuthResult authResult) {
                     Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
                     editor.putString("userid", firebaseAuth.getCurrentUser().getUid());
                     verifyUser();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CreateAccountActivity.this, "Failed to create account. Try again.", Toast.LENGTH_LONG).show();
                 }
             });
         }
     }
 
     public void verifyUser() {
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        Toast.makeText(CreateAccountActivity.this, "Please verify your account by following the link in the email we sent you.", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), VerifyAccountActivity.class);
-        intent.putExtra("username", username.getText().toString());
-        intent.putExtra("password", password.getText().toString());
         startActivity(intent);
         finish();
     }
@@ -122,7 +133,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      */
     public static boolean isPasswordValid(String password) {
 //        return PasswordAnalysis.passwordComplexity(password) > PasswordAnalysis.NUM_SECONDS_PER_DAY; // password will take more than 1 day to crack
-        return password.length() > 0; // for testing
+        return password.length() >= 6; // bare minimum length, for testing
     }
 
     /**

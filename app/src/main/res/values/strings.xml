@@ -10,12 +10,13 @@
     <string name="action_sign_in">Sign In or Register</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign In</string>
-    <string name="error_invalid_username">This username is invalid</string>
+    <string name="error_invalid_email">Must be an augustana.edu email address</string>
     <string name="error_invalid_password">This password is not complex enough</string>
     <string name="error_incorrect_password">This password is incorrect</string>
 
     <!-- Strings related to email verification -->
     <string name="verify">Please verify your account through the email we sent you and click Continue when you are done.</string>
+    <string name="verify_or_wait_prompt">Please verify your email first.\nIf you verified your email already, please try again in a minute.</string>
     <string name="btn_account_verified">Continue</string>
     <string name="resend_verification">Resend Verification Email</string>
 

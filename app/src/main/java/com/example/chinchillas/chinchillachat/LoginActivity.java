@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
@@ -19,9 +18,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -30,10 +26,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -63,11 +57,11 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private EditText mUsernameView;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private Button mUsernameSignInButton;
+    private Button mUserSignInButton;
     private Button mSignUpButton;
 
     private FirebaseAuth firebaseAuth;
@@ -83,7 +77,7 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
         } else {
             setContentView(R.layout.activity_login);
             // Set up the login form.
-            mUsernameView = findViewById(R.id.username);
+            mEmailView = findViewById(R.id.email);
             //populateAutoComplete();
 
             mPasswordView = findViewById(R.id.password);
@@ -98,8 +92,8 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
                 }
             });
 
-            mUsernameSignInButton = findViewById(R.id.user_sign_in_button);
-            mUsernameSignInButton.setOnClickListener(new OnClickListener() {
+            mUserSignInButton = findViewById(R.id.user_sign_in_button);
+            mUserSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     attemptLogin();
@@ -109,7 +103,18 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
             mSignUpButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getApplicationContext(), CreateAccountActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+
+                    // COPY VALUES OVER IF USER ENTERED THEM
+                    String email = mEmailView.getText().toString();
+                    String password = mPasswordView.getText().toString();
+                    if(email.length() > 0){
+                        intent.putExtra("email", email);
+                    }
+                    if(password.length() > 0){
+                        intent.putExtra("password", password);
+                    }
+                    startActivity(intent);
                     finish();
                 }
             });
@@ -135,7 +140,7 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mUsernameView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -174,11 +179,11 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
         }
 
         // Reset errors.
-        mUsernameView.setError(null);
+        mEmailView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
+        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -193,12 +198,12 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
             cancel = true;
         } else if (!CreateAccountActivity.isEmailValid(email)) {
-            mUsernameView.setError(getString(R.string.error_invalid_username));
-            focusView = mUsernameView;
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
             cancel = true;
         }
 
@@ -295,7 +300,7 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mUsernameView.setAdapter(adapter);
+        mEmailView.setAdapter(adapter);
     }*/
 
 

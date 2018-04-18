@@ -19,14 +19,10 @@ public class VerifyAccountActivity extends ChinchillaChatActivity {
     private Button resendButton;
     private Button continueButton;
 
-    private String username;
-    private String password;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         firebaseAuth = FirebaseAuth.getInstance();
-        Bundle extras = getIntent().getExtras();
         setContentView(R.layout.activity_verifyaccount);
         FirebaseUser user = firebaseAuth.getCurrentUser();
         user.sendEmailVerification();
@@ -49,7 +45,7 @@ public class VerifyAccountActivity extends ChinchillaChatActivity {
                     startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(VerifyAccountActivity.this, "Please verify your email first.\nIf you verified your email, please try again in a minute.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifyAccountActivity.this, getString(R.string.verify_or_wait_prompt), Toast.LENGTH_SHORT).show();
                 }
             }
         });
