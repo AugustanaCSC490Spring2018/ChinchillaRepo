@@ -25,10 +25,18 @@
     <string name="action_chat_now">Chat Now!</string>
     <string name="looking_for">I\'m looking for . . .</string>
     <string name="talk_about">I want to talk about . . . </string>
-    <string name="find_match">Find a Match</string>
+    <string name="action_find_match">Find a Match</string>
     <string name="available_matches">Available matches:</string>
     <string name="action_start_chat">Start Chatting</string>
     <string name="action_my_chats">My Chats</string>
+    <string name="new_conversation_btn">New Chat</string>
+
+    <!-- Strings related to new chats -->
+    <string name="real_username">Username</string>
+    <string name="pseudonym">Pseudonym</string>
+
+    <string name="blocked_users_title">Blocked Users</string>
+    <string name="settings_title">Settings</string>
 
     <string name="enter_message_hint">Enter Message</string>
 
