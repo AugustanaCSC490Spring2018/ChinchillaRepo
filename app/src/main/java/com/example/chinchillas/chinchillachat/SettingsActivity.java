@@ -3,6 +3,8 @@ package com.example.chinchillas.chinchillachat;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by angelicagarcia16 on 4/16/2018.
@@ -17,6 +19,7 @@ public class SettingsActivity extends ChinchillaChatActivity {
 
     private boolean notifPref;
     private CheckBoxPreference checkBoxPreference;
+    private Button confirmBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,14 @@ public class SettingsActivity extends ChinchillaChatActivity {
                     // turn off push notifications
                 }
                 return true;
+            }
+        });
+
+        confirmBtn = findViewById(R.id.confirm_settings);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
