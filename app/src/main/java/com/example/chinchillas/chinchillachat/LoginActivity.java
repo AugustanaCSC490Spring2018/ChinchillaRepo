@@ -76,8 +76,10 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(pref.contains("userid")){
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+            finish();
         } else {
             setContentView(R.layout.activity_login);
             // Set up the login form.
@@ -108,13 +110,12 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getApplicationContext(), CreateAccountActivity.class));
+                    finish();
                 }
             });
 
             mLoginFormView = findViewById(R.id.login_form);
             mProgressView = findViewById(R.id.login_progress);
-
-            firebaseAuth = FirebaseAuth.getInstance();
         }
     }
 
@@ -213,6 +214,7 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
             mAuthTask.execute((Void) null);
 
             startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+            finish();
 
         }
     }
@@ -329,7 +331,7 @@ public class LoginActivity extends ChinchillaChatActivity implements LoaderCallb
                     userID = authResult.getUser().getUid();
                     editor.putString("userid", userID);
                     startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
-//                    finish();
+                    finish();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

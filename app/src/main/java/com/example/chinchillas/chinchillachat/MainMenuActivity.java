@@ -27,6 +27,7 @@ public class MainMenuActivity extends ChinchillaChatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
             startActivity(new Intent(MainMenuActivity.this, LoginActivity.class));
+            finish();
         }
         setContentView(R.layout.activity_mainmenu);
 
