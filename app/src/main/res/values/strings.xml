@@ -35,10 +35,8 @@
     <string name="real_username">Username</string>
     <string name="pseudonym">Pseudonym</string>
 
-    <string name="blocked_users_title">Blocked Users</string>
-    <string name="settings_title">Settings</string>
-
     <string name="enter_message_hint">Enter Message</string>
+
 
     <string-array name="people_array">
         <item>Mercury</item>
@@ -50,6 +48,13 @@
         <item>Uranus</item>
         <item>Neptune</item>
     </string-array>
+
+    <!-- Strings for Blocked Users activity -->
+    <string name="blocked_users_title">Blocked Users</string>
+
+    <!-- Strings for the Settings activity -->
+    <string name="settings_title">Settings</string>
+    <string name="action_confirm_settings">Confirm Settings</string>
 
     <!-- menu item strings -->
     <string name="ui_menu_settings">Settings</string>
