@@ -1,13 +1,14 @@
 package com.example.chinchillas.chinchillachat.datamodel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ivyvecna15 on 4/13/2018.
  */
 
 public class MessageThread {
-    private ArrayList<Message> messages;
+    private List<Message> messages;
 
     public MessageThread() {
         messages = new ArrayList<Message>();
@@ -29,5 +30,9 @@ public class MessageThread {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public List<Message> getMessages() {
+        return messages;
     }
 }

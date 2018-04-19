@@ -3,11 +3,14 @@ package com.example.chinchillas.chinchillachat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.chinchillas.chinchillachat.datamodel.Pseudouser;
+import com.example.chinchillas.chinchillachat.datamodel.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,6 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by angelicagarcia16 on 4/9/2018.
@@ -30,11 +38,13 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
     EditText emailConfirmET;
     Button signInButton;
 
+    private boolean failedToCreateAccount = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createaccount);
-        usernameET = findViewById(R.id.email);
+        usernameET = findViewById(R.id.username);
         passwordET = findViewById(R.id.password);
         passwordConfirmET = findViewById(R.id.password_confirm);
         emailET = findViewById(R.id.email);
@@ -67,13 +77,16 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         String user = usernameET.getText().toString();
         String pass = passwordET.getText().toString();
         String pass2 = passwordConfirmET.getText().toString();
-        String mail = emailET.getText().toString().toLowerCase();
+        final String mail = emailET.getText().toString().toLowerCase();
         String mail2 = emailConfirmET.getText().toString().toLowerCase();
 
         StringBuilder sb = new StringBuilder();
-        if(isUsernameTaken(user)){
-            sb.append("Username already taken.\n");
+        if(!isUsernameValid(user)){
+            sb.append("Usernames may only contain letters and numbers.\n");
         }
+//        if(isUsernameTaken(user)){
+//            sb.append("Username already taken.\n");
+//        }
         if(!isEmailValid(mail)){
             sb.append("Must use an @augustana.edu email.\n");
         }
@@ -92,19 +105,51 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         } else {
             // Showing progress dialog at user registration time.
             Toast.makeText(this, "Registering. Please Wait.", Toast.LENGTH_LONG).show();
-            firebaseAuth.createUserWithEmailAndPassword(mail, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
-                    editor.putString("userid", firebaseAuth.getCurrentUser().getUid());
-                    verifyUser();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+            final String username = usernameET.getText().toString();
+            final String pseudonym = usernameET.getText().toString(); // TODO: Change this.
+            databaseReference.child("usernameList").child(username).setValue(true).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CreateAccountActivity.this, "Failed to create account. Try again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateAccountActivity.this, "Username already in use.", Toast.LENGTH_LONG).show();
+                    failedToCreateAccount = true;
                 }
             });
+            databaseReference.child("pseudonymList").child(pseudonym).setValue(true).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CreateAccountActivity.this, "Pseudonym already in use.", Toast.LENGTH_LONG).show();
+                    failedToCreateAccount = true;
+                }
+            });
+            databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(true).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(CreateAccountActivity.this, "E-mail already in use.", Toast.LENGTH_LONG).show();
+                    failedToCreateAccount = true;
+                }
+            });
+
+            if(failedToCreateAccount){
+                failedToCreateAccount = false;
+                return;
+            } else {
+                firebaseAuth.createUserWithEmailAndPassword(mail, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
+                        String userID = firebaseAuth.getCurrentUser().getUid();
+                        editor.putString("userid", userID);
+                        User newUser = new User(username, mail, pseudonym);
+                        databaseReference.child("users").child(userID).setValue(newUser.toMap());
+                        verifyUser();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(CreateAccountActivity.this, "Failed to create account. Try again.", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     }
 
@@ -137,11 +182,53 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
     }
 
     /**
+     * Usernames are considered to be valid if they contain at least one character
+     * and do not contain any symbols.
+     *
      * @param username
-     * @return true if the username is already in use, false otherwise
+     * @return true if the password is valid, false otherwise
      */
-    public static boolean isUsernameTaken(String username) {
-        return false;
+    public static boolean isUsernameValid(String username) {
+        if (username.length() == 0) {
+            return false;
+        }
+        for(int i=0; i<username.length(); i++) {
+            if(!Character.isLetterOrDigit(username.charAt(i))){
+                return false;
+            }
+        }
+        return true;
     }
+
+//    /**
+//     * @param username
+//     * @return true if the username is already in use, false otherwise
+//     */
+//    public boolean isUsernameTaken(final String username) {
+//        boolean usernameAlreadyExists = false;
+//        databaseReference.child("usernamesList").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot != null) {
+//                    usernameIsTaken = dataSnapshot.getValue() != null;
+//                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
+//                        if(snap != null) {
+//                            usernameIsTaken = snap.getValue() != null;
+////                            String user = (String) snap.getValue();
+////                            if (user.equalsIgnoreCase(username)) {
+////                                usernameIsTaken = true;
+////                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        return usernameIsTaken;
+//    }
 
 }

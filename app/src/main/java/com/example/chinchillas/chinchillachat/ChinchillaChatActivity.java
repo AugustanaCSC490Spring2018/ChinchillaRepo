@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.securepreferences.SecurePreferences;
 
 /**
@@ -25,6 +27,8 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     protected SecurePreferences pref;
 
     protected SharedPreferences.Editor editor;
+
+    protected DatabaseReference databaseReference;
 
 //    This class uses SecurePreferences
 //    https://github.com/scottyab/secure-preferences
@@ -64,6 +68,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         pref = new SecurePreferences(getApplicationContext());
         editor = pref.edit();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
         if (nightMode) {
             setTheme(R.style.NightTheme);
