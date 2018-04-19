@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="42dp"
                 android:id="@+id/logoIV"
-                android:src="@drawable/logo_transparent"/>
+                android:src="@drawable/chinchillachatlogo_fi2"/>
 
             <!-- Username Entry -->
 
