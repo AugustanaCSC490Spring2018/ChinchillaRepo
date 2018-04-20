@@ -31,9 +31,9 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
     public void createList(final String user) {
         final ArrayList<String> blockedUsers = new ArrayList<>();
 
-        for (int i = 0; i < BlockedUsersDatabase.userPseudos.length; i++) {
+        for (String blockedUser : BlockedUsersDatabase.userPseudos) {
             // fill the blocked users list
-            blockedUsers.add(user);
+            blockedUsers.add(blockedUser);
         }
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.text_view, blockedUsers);
@@ -43,7 +43,7 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
         //ListView items open up a new activity when clicked upon
         blockedUsersLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 // when the user taps a blocked user, a prompt asks if they'd like to unblock them
                 AlertDialog.Builder adb = new AlertDialog.Builder(
                         BlockedUsersActivity.this);
@@ -54,7 +54,7 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
                 adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        blockedUsers.remove(user);
+                        blockedUsers.remove(position);
                         adapter.notifyDataSetChanged();
                     }
                 });
