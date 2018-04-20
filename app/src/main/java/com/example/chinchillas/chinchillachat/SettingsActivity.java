@@ -29,23 +29,24 @@ public class SettingsActivity extends ChinchillaChatActivity {
 
         notifPref = pref.getBoolean("checkboxPref", true);
 
-        checkBoxPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue.toString().equals("true")) {
-                    // let app do push notifications
-                } else {
-                    // turn off push notifications
-                }
-                return true;
-            }
-        });
+//        checkBoxPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//            @Override
+//            public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                if (newValue.toString().equals("true")) {
+//                    // let app do push notifications
+//                } else {
+//                    // turn off push notifications
+//                }
+//                return true;
+//            }
+//        });
 
         confirmBtn = findViewById(R.id.confirm_settings);
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: Implement
+                displayComingSoonMessage();
             }
         });
     }

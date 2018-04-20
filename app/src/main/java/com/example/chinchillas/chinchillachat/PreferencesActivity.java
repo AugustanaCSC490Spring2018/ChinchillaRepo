@@ -1,16 +1,12 @@
 package com.example.chinchillas.chinchillachat;
 
-import java.util.ArrayList;
-
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -23,12 +19,15 @@ import android.widget.Toast;
 
 public class PreferencesActivity extends ChinchillaChatActivity {
 
-    Spinner spinner = (Spinner) findViewById(R.id.dropdown);
+    Spinner spinner;
+    private Button findMatchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+
+        spinner = (Spinner) findViewById(R.id.dropdown);
 
         String[] people_types = new String[]{"nonbinary", "male", "female"};
 
@@ -57,6 +56,15 @@ public class PreferencesActivity extends ChinchillaChatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        findMatchButton = findViewById(R.id.findMatchBtn);
+        findMatchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Implement
+                displayComingSoonMessage();
             }
         });
     }

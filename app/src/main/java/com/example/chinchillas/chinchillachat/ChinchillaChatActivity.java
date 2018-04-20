@@ -120,4 +120,8 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         }
     }
 
+    public void displayComingSoonMessage(){
+        Toast.makeText(ChinchillaChatActivity.this, "Coming soon to an Android device near you!", Toast.LENGTH_SHORT).show();
+    }
+
 }

@@ -71,7 +71,6 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
                             TextView messageText = new TextView(MessageThreadActivity.this);
                             messageText.setText(message.getMessage());
                             layout.addView(messageText);
-                            scrollView.fullScroll(View.FOCUS_DOWN);
 //                            for (Message message : messages.getMessages()) {
 //                                TextView messageText = new TextView(MessageThreadActivity.this);
 //                                messageText.setText(message.getMessage());
@@ -80,6 +79,7 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
                         }
                     }
                 }
+                scrollView.fullScroll(View.FOCUS_DOWN);
 //                List<Message> messages = new ArrayList<>();
 //                for (DataSnapshot ds : dataSnapshot.getChildren()){
 //                    Message message = ds.getValue(Message.class);
@@ -103,36 +103,38 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
             @Override
             public void onClick(View v) {
                 String messageText = messageBox.getText().toString();
-                Message message = new Message(messageText, firebaseAuth.getUid());
-                messages.addMessage(message);
-                databaseReference.child("users").child(firebaseAuth.getUid()).child("pseudouser").child("chats").child((username == null ? pseudonym : username)).setValue(messages);
-                if(partnerID == null) {
-                    databaseReference.child("pseudonymList").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot != null) {
-                                DataSnapshot ds = dataSnapshot.child(pseudonym);
-                                if(ds != null) {
-                                    partnerID = ds.getValue(String.class);
+                if(messageText.length()>0) {
+                    Message message = new Message(messageText, firebaseAuth.getUid());
+                    messages.addMessage(message);
+                    databaseReference.child("users").child(firebaseAuth.getUid()).child("pseudouser").child("chats").child((username == null ? pseudonym : username)).setValue(messages);
+                    if (partnerID == null) {
+                        databaseReference.child("pseudonymList").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot != null) {
+                                    DataSnapshot ds = dataSnapshot.child(pseudonym);
+                                    if (ds != null) {
+                                        partnerID = ds.getValue(String.class);
+                                    }
                                 }
+
                             }
 
-                        }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
 
-                        }
-                    });
-                }
-
-                if(partnerID == null){
-                    partnerID = "kSGxGsmmbfgglSeUXBcyjIPEpv82";
-                }
+                    if (partnerID == null) {
+                        partnerID = "kSGxGsmmbfgglSeUXBcyjIPEpv82";
+                    }
 //                databaseReference.child("users").child("mXjOE2p2ccZPht5NB8XYqQq9Bq22").child("pseudouser").child("chats").child(pref.getString("myUsername", null)).setValue(messages);
 //                databaseReference.setValue("users/" + partnerID + "/pseudouser/chats/" + pref.getString("myUsername", null), messages);
 
-                messageBox.setText("");
+                    messageBox.setText("");
+                }
             }
         });
     }
