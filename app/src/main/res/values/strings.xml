@@ -15,7 +15,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
 
     <!-- Strings related to email verification -->
-    <string name="verify">Please verify your account through the email we sent you and click Continue when you are done.</string>
+    <string name="verify">To verify your account, please click the verification link we sent to your email. You can resend the email below or press Continue.\n(this may take a few seconds)</string>
     <string name="verify_or_wait_prompt">Please verify your email first.\nIf you verified your email already, please try again in a minute.</string>
     <string name="btn_account_verified">Continue</string>
     <string name="resend_verification">Resend Verification Email</string>
@@ -37,18 +37,6 @@
     <string name="pseudonym">Pseudonym</string>
 
     <string name="enter_message_hint">Enter Message</string>
-
-
-    <string-array name="people_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
-    </string-array>
 
     <!-- Strings for Blocked Users activity -->
     <string name="blocked_users_title">Blocked Users</string>
