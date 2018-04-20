@@ -107,27 +107,27 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
             Toast.makeText(this, "Registering. Please Wait.", Toast.LENGTH_LONG).show();
             final String username = usernameET.getText().toString();
             final String pseudonym = usernameET.getText().toString(); // TODO: Change this.
-            databaseReference.child("usernameList").child(username).setValue(true).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CreateAccountActivity.this, "Username already in use.", Toast.LENGTH_LONG).show();
-                    failedToCreateAccount = true;
-                }
-            });
-            databaseReference.child("pseudonymList").child(pseudonym).setValue(true).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CreateAccountActivity.this, "Pseudonym already in use.", Toast.LENGTH_LONG).show();
-                    failedToCreateAccount = true;
-                }
-            });
-            databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(true).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(CreateAccountActivity.this, "E-mail already in use.", Toast.LENGTH_LONG).show();
-                    failedToCreateAccount = true;
-                }
-            });
+//            databaseReference.child("usernameList").child(username).setValue(true).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(CreateAccountActivity.this, "Username already in use.", Toast.LENGTH_LONG).show();
+//                    failedToCreateAccount = true;
+//                }
+//            });
+//            databaseReference.child("pseudonymList").child(pseudonym).setValue(true).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(CreateAccountActivity.this, "Pseudonym already in use.", Toast.LENGTH_LONG).show();
+//                    failedToCreateAccount = true;
+//                }
+//            });
+//            databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(true).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(CreateAccountActivity.this, "E-mail already in use.", Toast.LENGTH_LONG).show();
+//                    failedToCreateAccount = true;
+//                }
+//            });
 
             if(failedToCreateAccount){
                 failedToCreateAccount = false;
@@ -138,9 +138,14 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
                         String userID = firebaseAuth.getCurrentUser().getUid();
-                        editor.putString("userid", userID);
+//                        editor.putString("userid", userID);
                         User newUser = new User(username, mail, pseudonym);
                         databaseReference.child("users").child(userID).setValue(newUser.toMap());
+                        databaseReference.child("usernameList").child(username).setValue(userID);
+                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
+                        databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(userID);
+                        editor.putString("myUsername", username);
+                        editor.putString("myPseudonym", pseudonym);
                         verifyUser();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

@@ -2,11 +2,13 @@
 <!-- Largely adapted from -->
 <!-- https://www.thecrazyprogrammer.com/2016/10/android-real-time-chat-application-using-firebase-tutorial.html -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ScrollView
         android:id="@+id/message_thread_scroll_view"
+        android:layout_weight="20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,7 +19,10 @@
             android:orientation="vertical" />
 
     </ScrollView>
+
     <include
         layout="@layout/user_input_area"
-        ></include>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom" />
 </LinearLayout>

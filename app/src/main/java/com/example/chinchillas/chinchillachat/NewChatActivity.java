@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.example.chinchillas.chinchillachat.datamodel.MessageThread;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -42,14 +44,20 @@ public class NewChatActivity extends ChinchillaChatActivity {
             @Override
             public void onClick(View view) {
                 String username = editText.getText().toString();
-                if(radioUsername.isActivated()) {
+                Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
+                if(radioUsername.isChecked()) {
                     // TODO: check if username is a valid username
-                } else if(radioPseudonym.isActivated()) {
+                    intent.putExtra("username", username);
+                } else if(radioPseudonym.isChecked()) {
                     // TODO: check if pseudonym is a valid pseudonym
+                    intent.putExtra("pseudonym", username);
+                } else {
+                    Toast.makeText(NewChatActivity.this, "Please select username or pseudonym.", Toast.LENGTH_LONG).show();
+                    return; // do not start new activity
                 }
                 // TODO: prevent starting new activity without a valid username/pseudonym
                 // start activity TODO: pass it username/pseudonym and marker indicating which
-                startActivity(new Intent(getApplicationContext(), MessageThreadActivity.class));
+                startActivity(intent);
             }
         });
 

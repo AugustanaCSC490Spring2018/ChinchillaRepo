@@ -11,13 +11,14 @@ import java.util.Map;
 
 public class Pseudouser {
     private String pseudonym;
-    private List<MessageThread> chats;
+    private Map<String, MessageThread> chats;
     private List<User> friends;
     private List<User> blockList;
 
     public Pseudouser(String pseudonym) {
         this.pseudonym = pseudonym;
-        chats = new ArrayList<>();
+        chats = new HashMap<>();
+        chats.put(" ",new MessageThread());
         friends = new ArrayList<>();
         blockList = new ArrayList<>();
     }
