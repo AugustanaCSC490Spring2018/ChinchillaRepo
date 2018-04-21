@@ -7,6 +7,7 @@
         android:id="@+id/newChatBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="false"
         android:text="@string/new_conversation_btn"/>
 
     <ScrollView
