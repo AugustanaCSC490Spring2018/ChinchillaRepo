@@ -10,4 +10,6 @@
     <color name="colorPrimaryNight">#FF000000</color>
     <color name="colorAccentNight">#FF80CBC4</color>
     <color name="colorBGNight">#FF303030</color>
+
+    <color name="white">#FFFFFF</color>
 </resources>
