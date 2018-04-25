@@ -2,12 +2,11 @@ package com.example.chinchillas.chinchillachat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.example.chinchillas.chinchillachat.datamodel.MessageThread;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
     private EditText messageBox;
     private ImageButton sendButton;
     private LinearLayout layout;
-    private MessageThread messages;
+    private MessageThread messageThread;
     private ScrollView scrollView;
 
     private String messageThreadID;
@@ -61,34 +59,26 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
                 if (chats != null){
                     DataSnapshot chat = chats.child(username == null ? pseudonym : username);
                     if (chat == null){
-                        messages = new MessageThread();
+                        messageThread = new MessageThread();
                     } else {
-                        messages = chat.getValue(MessageThread.class);
-                        if (messages == null) {
-                            messages = new MessageThread();
+                        boolean activityJustLaunched = (messageThread == null);
+                        messageThread = chat.getValue(MessageThread.class);
+                        if (messageThread == null) {
+                            messageThread = new MessageThread();
                         } else {
-                            Message message = messages.getMessages().get(messages.getMessages().size() - 1);
-                            TextView messageText = new TextView(MessageThreadActivity.this);
-                            messageText.setText(message.getMessage());
-                            layout.addView(messageText);
-//                            for (Message message : messages.getMessages()) {
-//                                TextView messageText = new TextView(MessageThreadActivity.this);
-//                                messageText.setText(message.getMessage());
-//                                layout.addView(messageText);
-//                            }
+                            Log.d("CHINCHTAG", "participants: " + messageThread.getParticipants());
+                            if (activityJustLaunched) {
+                                for (Message message : messageThread.getMessages()) {
+                                    addMessageInTextView(message.getMessage());
+                                }
+                            } else {
+                                Message message = messageThread.getMessages().get(messageThread.getMessages().size() - 1);
+                                addMessageInTextView(message.getMessage());
+                            }
                         }
                     }
                 }
                 scrollView.fullScroll(View.FOCUS_DOWN);
-//                List<Message> messages = new ArrayList<>();
-//                for (DataSnapshot ds : dataSnapshot.getChildren()){
-//                    Message message = ds.getValue(Message.class);
-//                    messages.add(message);
-//                    TextView messageText = new TextView(MessageThreadActivity.this);
-//                    messageText.setText(message.getMessage());
-//                    layout.addView(messageText);
-//                }
-
             }
 
             @Override
@@ -105,8 +95,8 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
                 String messageText = messageBox.getText().toString();
                 if(messageText.length()>0) {
                     Message message = new Message(messageText, firebaseAuth.getUid());
-                    messages.addMessage(message);
-                    databaseReference.child("users").child(firebaseAuth.getUid()).child("pseudouser").child("chats").child((username == null ? pseudonym : username)).setValue(messages);
+                    messageThread.addMessage(message);
+                    databaseReference.child("users").child(firebaseAuth.getUid()).child("pseudouser").child("chats").child((username == null ? pseudonym : username)).setValue(messageThread);
                     if (partnerID == null) {
                         databaseReference.child("pseudonymList").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -130,13 +120,21 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
                     if (partnerID == null) {
                         partnerID = "kSGxGsmmbfgglSeUXBcyjIPEpv82";
                     }
-//                databaseReference.child("users").child("mXjOE2p2ccZPht5NB8XYqQq9Bq22").child("pseudouser").child("chats").child(pref.getString("myUsername", null)).setValue(messages);
-//                databaseReference.setValue("users/" + partnerID + "/pseudouser/chats/" + pref.getString("myUsername", null), messages);
+//                databaseReference.child("users").child("mXjOE2p2ccZPht5NB8XYqQq9Bq22").child("pseudouser").child("chats").child(pref.getString("myUsername", null)).setValue(messageThread);
+//                databaseReference.setValue("users/" + partnerID + "/pseudouser/chats/" + pref.getString("myUsername", null), messageThread);
 
                     messageBox.setText("");
                 }
             }
         });
     }
+
+    private void addMessageInTextView(String messageStr) {
+        TextView messageTV = new TextView(MessageThreadActivity.this);
+        messageTV.setText(messageStr);
+        layout.addView(messageTV);
+    }
+
+
 
 }

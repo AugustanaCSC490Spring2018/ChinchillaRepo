@@ -17,8 +17,8 @@
         >
 
         <!-- MESSAGE THREAD ACTIVITY -->
-        <activity android:name=".MessageThreadActivity"
-            android:label="@string/app_name"></activity>
+<!--        <activity android:name=".MessageThreadActivity"
+            android:label="@string/app_name"></activity>-->
 
         <!-- LOGIN ACTIVITY -->
         <activity

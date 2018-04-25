@@ -45,7 +45,7 @@ public class NewChatActivity extends ChinchillaChatActivity {
             public void onClick(View view) {
                 String username = editText.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), ChatActivityTest.class);
-           //     Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
+              //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
                 if(radioUsername.isChecked()) {
                     // TODO: check if username is a valid username
                     intent.putExtra("username", username);

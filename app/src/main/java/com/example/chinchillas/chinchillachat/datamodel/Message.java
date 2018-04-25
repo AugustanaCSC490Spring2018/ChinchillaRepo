@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Message implements Comparable<Message> {
     public String message;
-    public String senderID;
+    public String senderID;  //TODO: consider only storing the PSEUDONYM in each message, for security.
     public long time;
 
     public Message() {

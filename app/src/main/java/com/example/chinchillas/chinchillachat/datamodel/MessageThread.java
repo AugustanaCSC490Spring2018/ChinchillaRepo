@@ -1,7 +1,11 @@
 package com.example.chinchillas.chinchillachat.datamodel;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by ivyvecna15 on 4/13/2018.
@@ -34,5 +38,14 @@ public class MessageThread {
 
     public List<Message> getMessages() {
         return messages;
+    }
+
+    @Exclude
+    public Set<String> getParticipants() {
+        Set<String> users = new TreeSet<>();
+        for (Message message: messages){
+            users.add(message.getSenderID());
+        }
+        return users;
     }
 }

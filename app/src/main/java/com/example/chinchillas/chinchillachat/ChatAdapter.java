@@ -2,6 +2,7 @@ package com.example.chinchillas.chinchillachat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.chinchillas.chinchillachat.datamodel.Message;
+
 import java.util.List;
 
 /**
@@ -19,12 +22,14 @@ import java.util.List;
 
 public class ChatAdapter extends BaseAdapter {
 
-    private final List<ChatMessage> chatMessages;
+    private final List<Message> chatMessages;
     private Activity context;
+    private String userIDForMe;
 
-    public ChatAdapter(Activity context, List<ChatMessage> chatMessages) {
+    public ChatAdapter(Activity context, List<Message> chatMessages, String userIDForMe) {
         this.context = context;
         this.chatMessages = chatMessages;
+        this.userIDForMe = userIDForMe;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     @Override
-    public ChatMessage getItem(int position) {
+    public Message getItem(int position) {
         if (chatMessages != null) {
             return chatMessages.get(position);
         } else {
@@ -53,7 +58,7 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        ChatMessage chatMessage = getItem(position);
+        Message chatMessage = getItem(position);
         LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
@@ -64,26 +69,26 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        boolean myMsg = chatMessage.getIsme() ;//Just a dummy check
+        boolean myMsg = chatMessage.getSenderID().equals(userIDForMe);
         //to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtInfo.setText(chatMessage.getDate());
+        holder.txtInfo.setText("time: " + chatMessage.getTime());
 
         return convertView;
     }
 
-    public void add(ChatMessage message) {
+    public void add(Message message) {
         chatMessages.add(message);
     }
 
-    public void add(List<ChatMessage> messages) {
+    public void add(List<Message> messages) {
         chatMessages.addAll(messages);
     }
 
     private void setAlignment(ViewHolder holder, boolean isMe) {
         if (!isMe) {
-
+            holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
             LinearLayout.LayoutParams layoutParams =
                     (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
@@ -102,6 +107,7 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
         } else {
+            holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
 
             LinearLayout.LayoutParams layoutParams =
                     (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();

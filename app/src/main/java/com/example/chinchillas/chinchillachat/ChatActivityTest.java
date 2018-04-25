@@ -4,6 +4,7 @@ package com.example.chinchillas.chinchillachat;
  * Created by angelicagarcia16 on 4/23/2018.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.example.chinchillas.chinchillachat.datamodel.Message;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -27,12 +31,20 @@ public class ChatActivityTest extends ChinchillaChatActivity {
     private ListView messagesContainer;
     private Button sendBtn;
     private ChatAdapter adapter;
-    private ArrayList<ChatMessage> chatLog;
+    private ArrayList<Message> chatLog;
+    private FirebaseAuth firebaseAuth;
+    private String senderIDForMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chattest);
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() == null){
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+        this.senderIDForMe = firebaseAuth.getCurrentUser().getUid();
+
         initControls();
     }
 
@@ -41,7 +53,9 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (Button) findViewById(R.id.chatSendButton);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
-        loadDummyHistory();
+        chatLog = new ArrayList<Message>();
+        adapter = new ChatAdapter(ChatActivityTest.this, new ArrayList<Message>(), senderIDForMe);
+        messagesContainer.setAdapter(adapter);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,19 +65,16 @@ public class ChatActivityTest extends ChinchillaChatActivity {
                     return;
                 }
 
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.setId(122); // dummy
-                chatMessage.setMessage(messageText);
-                chatMessage.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-                chatMessage.setMe(true);
-
+                Message chatMessage = new Message(messageText,senderIDForMe);
                 messageET.setText("");
                 displayMessage(chatMessage);
             }
         });
+
+
     }
 
-    public void displayMessage(ChatMessage message) {
+    public void displayMessage(Message message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
@@ -73,27 +84,25 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
-    private void loadDummyHistory() {
-        chatLog = new ArrayList<ChatMessage>();
-        ChatMessage msg = new ChatMessage();
-        msg.setId(1);
-        msg.setMe(false);
-        msg.setMessage("Howdy");
-        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-        chatLog.add(msg);
-        ChatMessage msg1 = new ChatMessage();
-        msg1.setId(2);
-        msg1.setMe(false);
-        msg1.setMessage("How r u doing???");
-        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-        chatLog.add(msg1);
-
-        adapter = new ChatAdapter(ChatActivityTest.this, new ArrayList<ChatMessage>());
-        messagesContainer.setAdapter(adapter);
-
-        for(int i = 0; i< chatLog.size(); i++) {
-            ChatMessage message = chatLog.get(i);
-            displayMessage(message);
-        }
-    }
+//    private void loadDummyHistory() {
+//
+//        //        ChatMessage msg = new ChatMessage();
+////        msg.setId(1);
+////        msg.setMe(false);
+////        msg.setMessage("Howdy");
+////        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+////        chatLog.add(msg);
+////        ChatMessage msg1 = new ChatMessage();
+////        msg1.setId(2);
+////        msg1.setMe(false);
+////        msg1.setMessage("How r u doing???");
+////        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+////        chatLog.add(msg1);
+//
+//
+////        for(int i = 0; i< chatLog.size(); i++) {
+////            ChatMessage message = chatLog.get(i);
+////            displayMessage(message);
+////        }
+//    }
 }
