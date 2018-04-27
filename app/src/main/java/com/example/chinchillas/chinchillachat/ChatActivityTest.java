@@ -86,23 +86,23 @@ public class ChatActivityTest extends ChinchillaChatActivity {
 
 //    private void loadDummyHistory() {
 //
-//        //        ChatMessage msg = new ChatMessage();
-////        msg.setId(1);
-////        msg.setMe(false);
-////        msg.setMessage("Howdy");
-////        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-////        chatLog.add(msg);
-////        ChatMessage msg1 = new ChatMessage();
-////        msg1.setId(2);
-////        msg1.setMe(false);
-////        msg1.setMessage("How r u doing???");
-////        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-////        chatLog.add(msg1);
+//                ChatMessage msg = new ChatMessage();
+//        msg.setId(1);
+//        msg.setMe(false);
+//        msg.setMessage("Howdy");
+//        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+//        chatLog.add(msg);
+//        ChatMessage msg1 = new ChatMessage();
+//        msg1.setId(2);
+//        msg1.setMe(false);
+//        msg1.setMessage("How r u doing???");
+//        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+//        chatLog.add(msg1);
 //
 //
-////        for(int i = 0; i< chatLog.size(); i++) {
-////            ChatMessage message = chatLog.get(i);
-////            displayMessage(message);
-////        }
+//        for(int i = 0; i< chatLog.size(); i++) {
+//            ChatMessage message = chatLog.get(i);
+//            displayMessage(message);
+//        }
 //    }
 }
