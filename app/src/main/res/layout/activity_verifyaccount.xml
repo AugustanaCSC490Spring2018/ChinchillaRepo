@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -12,26 +12,47 @@
         android:layout_height="wrap_content"
         android:text="@string/verify"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="20dp"
+        android:textSize="@dimen/instructions_size"
+        android:id="@+id/verify_instructions"
         android:lineSpacingExtra="4dp"
         android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
-    <Button
-        android:id="@+id/resend_verification_btn"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/parentheses_message"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/parentheses"
+        android:layout_below="@id/verify_instructions"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="@dimen/hint_size"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
-        android:textAllCaps="false"
-        android:text="@string/resend_verification" />
+        >
 
-    <Button
-        android:id="@+id/check_verification_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/resend_verification_btn"
-        android:text="@string/btn_account_verified"
-        android:textAllCaps="false"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"/>
+        <Button
+            android:id="@+id/check_verification_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_account_verified"
+            android:textAllCaps="false"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/resend_verification_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/check_verification_btn"
+            android:text="@string/resend_verification"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+</RelativeLayout>

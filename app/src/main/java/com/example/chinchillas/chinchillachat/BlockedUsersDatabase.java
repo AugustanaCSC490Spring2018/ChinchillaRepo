@@ -6,7 +6,8 @@ package com.example.chinchillas.chinchillachat;
 
 /**
  * This class should be able to fill a user's blocked users list
- * with the appropriate users
+ * with the appropriate users.
+ * TODO: delete hardcoded entries and replace appropriately
  */
 
 public class BlockedUsersDatabase {

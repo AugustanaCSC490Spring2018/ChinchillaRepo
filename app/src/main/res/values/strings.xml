@@ -10,25 +10,35 @@
     <string name="action_sign_in">Sign In or Register</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign In</string>
-    <string name="error_invalid_email">Must be an augustana.edu email address</string>
+    <string name="error_invalid_email">You must use an augustana.edu email address</string>
     <string name="error_invalid_password">This password is not complex enough</string>
     <string name="error_incorrect_password">This password is incorrect</string>
 
     <!-- Strings related to email verification -->
-    <string name="verify">To verify your account, please click the verification link we sent to your email. You can resend the email below or press Continue.\n(this may take a few seconds)</string>
+    <string name="verify">To verify your account, please click the verification link we sent to your email. You can resend the email below or press Continue.</string>
+    <string name="parentheses">(this may take a few seconds)</string>
     <string name="verify_or_wait_prompt">Please verify your email first.\nIf you verified your email already, please try again in a minute.</string>
     <string name="btn_account_verified">Continue</string>
     <string name="resend_verification">Resend Verification Email</string>
 
 
     <string name="error_field_required">This field is required</string>
+
+    <!-- Strings for main menu buttons -->
     <string name="action_find_a_friend">Find a Friend</string>
     <string name="action_chat_now">Chat Now!</string>
-    <string name="looking_for">I\'m looking for . . .</string>
-    <string name="talk_about">I want to talk about . . . </string>
     <string name="action_find_match">Find a Match</string>
+
+    <!-- Strings for Preferences activity -->
+    <string name="looking_for">I\'m looking for someone who identifies as . . .</string>
+    <string name="talk_about">I want to talk about topics such as . . . </string>
+    <string name="tags_hint">(list items as tags, separated by commas)</string>
+
+    <!-- Strings for Matches activity -->
     <string name="available_matches">Available matches:</string>
     <string name="action_start_chat">Start Chatting</string>
+
+    <!-- Strings for ChatList activity -->
     <string name="action_my_chats">My Chats</string>
     <string name="new_conversation_btn">New Chat</string>
 
