@@ -29,7 +29,7 @@ public class PreferencesActivity extends ChinchillaChatActivity {
 
         spinner = (Spinner) findViewById(R.id.dropdown);
 
-        String[] people_types = new String[]{"nonbinary", "male", "female"};
+        String[] people_types = new String[]{"cisgender female", "cisgender male", "intersex", "nonbinary", "transgender female", "transgender male", "other", "anything"};
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, people_types) {
