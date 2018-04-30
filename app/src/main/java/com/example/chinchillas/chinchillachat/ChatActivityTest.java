@@ -7,6 +7,7 @@ package com.example.chinchillas.chinchillachat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +16,16 @@ import android.widget.RelativeLayout;
 
 import com.example.chinchillas.chinchillachat.datamodel.Message;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,13 +38,16 @@ public class ChatActivityTest extends ChinchillaChatActivity {
     private ListView messagesContainer;
     private Button sendBtn;
     private ChatAdapter adapter;
-    private ArrayList<Message> chatLog;
+    private List<Message> chatLog;
     private FirebaseAuth firebaseAuth;
     private String senderIDForMe;
+    private DatabaseReference chatThreadReference;
+    private String chatThreadID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        chatThreadID = getIntent().getStringExtra("chatThreadID");
         setContentView(R.layout.activity_chattest);
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
@@ -54,8 +64,64 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         sendBtn = (Button) findViewById(R.id.chatSendButton);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         chatLog = new ArrayList<Message>();
-        adapter = new ChatAdapter(ChatActivityTest.this, new ArrayList<Message>(), senderIDForMe);
+        if(chatThreadID == null) {
+            chatThreadReference = databaseReference.child("chats").push();
+            chatThreadID = chatThreadReference.getKey();
+            chatThreadReference.setValue(chatLog);
+            databaseReference.child("users").child(senderIDForMe).child("myChats").push().setValue(chatThreadID);
+        } else {
+            chatThreadReference = databaseReference.child("chats").child(chatThreadID);
+        }
+
+        chatThreadReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    Message message = child.getValue(Message.class);
+                    chatLog.add(message);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        chatThreadReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Message message = dataSnapshot.getValue(Message.class);
+                chatLog.add(message);
+                adapter.notifyDataSetChanged();
+                scroll();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        adapter = new ChatAdapter(ChatActivityTest.this, chatLog, senderIDForMe);
         messagesContainer.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        scroll();
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +133,8 @@ public class ChatActivityTest extends ChinchillaChatActivity {
 
                 Message chatMessage = new Message(messageText,senderIDForMe);
                 messageET.setText("");
-                displayMessage(chatMessage);
+//                displayMessage(chatMessage);
+                chatThreadReference.push().setValue(chatMessage);
             }
         });
 
