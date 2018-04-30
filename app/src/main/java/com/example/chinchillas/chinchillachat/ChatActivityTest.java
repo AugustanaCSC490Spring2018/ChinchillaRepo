@@ -73,20 +73,20 @@ public class ChatActivityTest extends ChinchillaChatActivity {
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
         }
 
-        chatThreadReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child : dataSnapshot.getChildren()){
-                    Message message = child.getValue(Message.class);
-                    chatLog.add(message);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        chatThreadReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for(DataSnapshot child : dataSnapshot.getChildren()){
+//                    Message message = child.getValue(Message.class);
+//                    chatLog.add(message);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         chatThreadReference.addChildEventListener(new ChildEventListener() {
             @Override
