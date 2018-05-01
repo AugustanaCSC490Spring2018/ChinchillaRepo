@@ -2,7 +2,6 @@ package com.example.chinchillas.chinchillachat;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +23,12 @@ public class ChatAdapter extends BaseAdapter {
 
     private final List<Message> chatMessages;
     private Activity context;
-    private String userIDForMe;
+    private String usernameForMe;
 
-    public ChatAdapter(Activity context, List<Message> chatMessages, String userIDForMe) {
+    public ChatAdapter(Activity context, List<Message> chatMessages, String usernameForMe) {
         this.context = context;
         this.chatMessages = chatMessages;
-        this.userIDForMe = userIDForMe;
+        this.usernameForMe = usernameForMe;
     }
 
     @Override
@@ -69,7 +68,7 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        boolean myMsg = chatMessage.getSenderID().equals(userIDForMe);
+        boolean myMsg = chatMessage.getSenderID().equals(usernameForMe);
         //to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());

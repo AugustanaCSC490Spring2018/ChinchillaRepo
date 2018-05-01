@@ -45,6 +45,7 @@
     <!-- Strings related to new chats -->
     <string name="real_username">Username</string>
     <string name="pseudonym">Pseudonym</string>
+    <string name="prompt_for_usernames">Please enter the username of each friend to be included in the chat, separated by commas.</string>
 
     <string name="enter_message_hint">Enter Message</string>
 

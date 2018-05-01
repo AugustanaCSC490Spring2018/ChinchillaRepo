@@ -14,26 +14,6 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:hint="Name"/>
 
-    <RadioGroup
-        android:layout_below="@id/usernameToStartChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
-        <RadioButton
-            android:id="@+id/usernameRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/real_username"
-            android:padding="10dp"></RadioButton>
-        <RadioButton
-            android:id="@+id/pseudonymRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/pseudonym"
-            android:padding="10dp"></RadioButton>
-    </RadioGroup>
-
     <Button
         android:id="@+id/start_chat_btn"
         android:layout_width="wrap_content"
@@ -43,6 +23,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:text="@string/action_start_chat"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/usernameToStartChat"
+        android:layout_alignStart="@+id/usernameToStartChat"
+        android:layout_below="@+id/usernameToStartChat"
+        android:layout_marginTop="21dp"
+        android:text="@string/prompt_for_usernames"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 
 </RelativeLayout>

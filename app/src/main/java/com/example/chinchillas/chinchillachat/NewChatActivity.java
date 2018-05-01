@@ -36,35 +36,50 @@ public class NewChatActivity extends ChinchillaChatActivity {
 
         setContentView(R.layout.activity_newchat);
 
-        radioUsername = findViewById(R.id.usernameRadioButton);
-        radioPseudonym = findViewById(R.id.pseudonymRadioButton);
-
         editText = findViewById(R.id.usernameToStartChat);
 
         startChatBtn = findViewById(R.id.start_chat_btn);
         startChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = editText.getText().toString();
+                String usernames = editText.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), ChatActivityTest.class);
-              //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
-                if(radioUsername.isChecked()) {
-                    // TODO: check if username is a valid username
-                    ArrayList<String> friendUsernames = new ArrayList<>();
-                    friendUsernames.add(username);
-                    intent.putExtra("friendUsernames", friendUsernames);
-                } else if(radioPseudonym.isChecked()) {
-                    // TODO: check if pseudonym is a valid pseudonym
-                    intent.putExtra("pseudonym", username);
-                } else {
-                    Toast.makeText(NewChatActivity.this, "Please select username or pseudonym.", Toast.LENGTH_LONG).show();
-                    return; // do not start new activity
+                //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
+                // TODO: check if username is a valid username
+                ArrayList<String> friendUsernames = getUsernamesListFromUsernamesString(usernames);
+                if(friendUsernames.size() == 0) {
+                    Toast.makeText(NewChatActivity.this, "Please enter at least one valid username.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                intent.putExtra("friendUsernames", friendUsernames);
                 // TODO: prevent starting new activity without a valid username/pseudonym
                 // start activity TODO: pass it username/pseudonym and marker indicating which
                 startActivity(intent);
             }
         });
 
+    }
+
+    public static ArrayList<String> getUsernamesListFromUsernamesString(String usernames) {
+        ArrayList<String> usernamesList = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i<usernames.length(); i++){
+            char character = usernames.charAt(i);
+            if(Character.isLetterOrDigit(character)){ // usernames should only contain alphanumeric characters
+                sb.append(character);
+            } else {
+                if (sb.length() > 0) {
+                    // TODO: Check if username is valid...
+                    usernamesList.add(sb.toString());
+                    sb.delete(0,sb.length());
+                }
+            }
+        }
+        if (sb.length() > 0){
+            // TODO: Check if username is valid...
+            usernamesList.add(sb.toString());
+            sb.delete(0,sb.length());
+        }
+        return usernamesList;
     }
 }

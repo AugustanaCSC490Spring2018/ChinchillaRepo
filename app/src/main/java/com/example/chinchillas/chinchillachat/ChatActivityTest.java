@@ -35,7 +35,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
     private ChatAdapter adapter;
     private List<Message> chatLog;
     private FirebaseAuth firebaseAuth;
-    private String senderIDForMe;
+    private String usernameForMe;
     private DatabaseReference chatThreadReference;
     private String chatThreadID;
     private List<String> friendUsernames;
@@ -50,7 +50,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         if(firebaseAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-        this.senderIDForMe = firebaseAuth.getCurrentUser().getUid();
+        this.usernameForMe = username;
 
         initControls();
     }
@@ -118,7 +118,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
             }
         });
 
-        adapter = new ChatAdapter(ChatActivityTest.this, chatLog, senderIDForMe);
+        adapter = new ChatAdapter(ChatActivityTest.this, chatLog, usernameForMe);
         messagesContainer.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         scroll();
@@ -131,7 +131,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
                     return;
                 }
 
-                Message chatMessage = new Message(messageText,senderIDForMe);
+                Message chatMessage = new Message(messageText, usernameForMe);
                 messageET.setText("");
 //                displayMessage(chatMessage);
                 chatThreadReference.push().setValue(chatMessage);
