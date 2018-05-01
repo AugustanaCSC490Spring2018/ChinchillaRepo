@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class NewChatActivity extends ChinchillaChatActivity {
 
     FirebaseAuth firebaseAuth;
@@ -48,7 +50,9 @@ public class NewChatActivity extends ChinchillaChatActivity {
               //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
                 if(radioUsername.isChecked()) {
                     // TODO: check if username is a valid username
-                    intent.putExtra("username", username);
+                    ArrayList<String> friendUsernames = new ArrayList<>();
+                    friendUsernames.add(username);
+                    intent.putExtra("friendUsernames", friendUsernames);
                 } else if(radioPseudonym.isChecked()) {
                     // TODO: check if pseudonym is a valid pseudonym
                     intent.putExtra("pseudonym", username);

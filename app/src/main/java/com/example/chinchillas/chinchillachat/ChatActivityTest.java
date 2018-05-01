@@ -7,7 +7,6 @@ package com.example.chinchillas.chinchillachat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +19,8 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,11 +38,13 @@ public class ChatActivityTest extends ChinchillaChatActivity {
     private String senderIDForMe;
     private DatabaseReference chatThreadReference;
     private String chatThreadID;
+    private List<String> friendUsernames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         chatThreadID = getIntent().getStringExtra("chatThreadID");
+        friendUsernames = getIntent().getStringArrayListExtra("friendUsernames");
         setContentView(R.layout.activity_chattest);
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
@@ -68,7 +65,10 @@ public class ChatActivityTest extends ChinchillaChatActivity {
             chatThreadReference = databaseReference.child("chats").push();
             chatThreadID = chatThreadReference.getKey();
             chatThreadReference.setValue(chatLog);
-            databaseReference.child("users").child(senderIDForMe).child("myChats").push().setValue(chatThreadID);
+            databaseReference.child("usernames").child(username).child("myChats").push().setValue(chatThreadID);
+            for(String name : friendUsernames){
+                databaseReference.child("usernames").child(name).child("myChats").push().setValue(chatThreadID);
+            }
         } else {
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
         }

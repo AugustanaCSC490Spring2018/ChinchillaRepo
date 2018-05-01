@@ -48,7 +48,8 @@ public class ChatListActivity extends ChinchillaChatActivity {
         listView = findViewById(R.id.listChats);
         // TODO: ADD CODE TO FILL SCROLLVIEW WITH CURRENT CHATS
         chats = new ArrayList<>();
-        databaseReference.child("users").child(firebaseAuth.getUid()).child("myChats").addChildEventListener(new ChildEventListener() {
+
+        databaseReference.child("usernames").child(username).child("myChats").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot != null) {

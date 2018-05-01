@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.securepreferences.SecurePreferences;
 
 /**
@@ -29,6 +33,8 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     protected SharedPreferences.Editor editor;
 
     protected DatabaseReference databaseReference;
+
+    protected String username;
 
 //    This class uses SecurePreferences
 //    https://github.com/scottyab/secure-preferences
@@ -74,6 +80,25 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             setTheme(R.style.NightTheme);
         } else {
             setTheme(R.style.AppTheme);
+        }
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            username = pref.getString("username", null);
+            if (username == null) {
+                databaseReference.child("users").child(FirebaseAuth.getInstance().getUid()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        username = dataSnapshot.getValue(String.class);
+//                    Log.d("username", username);
+                        editor.putString("username", username);
+                        editor.commit();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
         }
     }
 
