@@ -23,8 +23,6 @@ public class NewChatActivity extends ChinchillaChatActivity {
     DatabaseReference reference;
 
     EditText editText;
-    RadioButton radioUsername;
-    RadioButton radioPseudonym;
     Button startChatBtn;
 
     @Override
@@ -52,9 +50,8 @@ public class NewChatActivity extends ChinchillaChatActivity {
                     return;
                 }
                 intent.putExtra("friendUsernames", friendUsernames);
-                // TODO: prevent starting new activity without a valid username/pseudonym
-                // start activity TODO: pass it username/pseudonym and marker indicating which
                 startActivity(intent);
+                NewChatActivity.this.finish();
             }
         });
 

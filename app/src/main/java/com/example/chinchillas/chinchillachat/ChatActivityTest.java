@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,7 +37,8 @@ public class ChatActivityTest extends ChinchillaChatActivity {
     private List<Message> chatLog;
     private FirebaseAuth firebaseAuth;
     private String usernameForMe;
-    private DatabaseReference chatThreadReference;
+    private DatabaseReference chatThreadReference; // chat thread reference including members and messages lists
+    private DatabaseReference chatThreadMessagesReference; // chat thread reference for just messages list
     private String chatThreadID;
     private List<String> friendUsernames;
 
@@ -64,31 +66,24 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         if(chatThreadID == null) {
             chatThreadReference = databaseReference.child("chats").push();
             chatThreadID = chatThreadReference.getKey();
-            chatThreadReference.setValue(chatLog);
-            databaseReference.child("usernames").child(username).child("myChats").push().setValue(chatThreadID);
-            for(String name : friendUsernames){
-                databaseReference.child("usernames").child(name).child("myChats").push().setValue(chatThreadID);
+            HashMap<String, Object> chatMap = new HashMap<>(); // include list of chat members and list of chat messages
+            chatMap.put("members", friendUsernames);
+            chatMap.put("messages", chatLog);
+            chatThreadReference.setValue(chatMap);
+//            databaseReference.child("usernames").child(username).child("myChats").child(chatThreadID).setValue(friendUsernames);
+            ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
+            chatMembersList.add(username);
+            for(String name : chatMembersList){ // add list of other chat members
+                ArrayList<String> otherChatMembersList = (ArrayList<String>) chatMembersList.clone();
+                otherChatMembersList.remove(name);
+                databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList);
             }
         } else {
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
         }
+        chatThreadMessagesReference = chatThreadReference.child("messages");
 
-//        chatThreadReference.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot child : dataSnapshot.getChildren()){
-//                    Message message = child.getValue(Message.class);
-//                    chatLog.add(message);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-        chatThreadReference.addChildEventListener(new ChildEventListener() {
+        chatThreadMessagesReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
@@ -134,7 +129,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
                 Message chatMessage = new Message(messageText, usernameForMe);
                 messageET.setText("");
 //                displayMessage(chatMessage);
-                chatThreadReference.push().setValue(chatMessage);
+                chatThreadMessagesReference.push().setValue(chatMessage);
             }
         });
 
