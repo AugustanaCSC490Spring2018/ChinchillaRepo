@@ -45,7 +45,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
         chatsByMemberNames = new ArrayList<>();
         chatsByID = new ArrayList<>();
 
-        databaseReference.child("usernames").child(username).child("myChats").addChildEventListener(new ChildEventListener() {
+        databaseReference.child("usernames").child(myUsername).child("myChats").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot != null) {

@@ -10,19 +10,19 @@ import java.util.Map;
 public class User {
     private String username;
     private String email;
-    private Pseudouser pseudouser;
+//    private Pseudouser pseudouser;
 
-    public User(String username, String email, String pseudoUsername) {
+    public User(String username, String email) {
         this.username = username;
         this.email = email;
-        this.pseudouser = new Pseudouser(pseudoUsername);
+//        this.pseudouser = new Pseudouser(pseudoUsername);
     }
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("email", email);
-        map.put("pseudouser", pseudouser.toMap());
+//        map.put("pseudouser", pseudouser.toMap());
         return map;
     }
 }

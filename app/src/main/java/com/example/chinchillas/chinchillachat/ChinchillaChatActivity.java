@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,7 +33,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
     protected DatabaseReference databaseReference;
 
-    protected String username;
+    protected String myUsername;
 
 //    This class uses SecurePreferences
 //    https://github.com/scottyab/secure-preferences
@@ -82,14 +81,14 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
         }
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
-            username = pref.getString("username", null);
-            if (username == null) {
+            myUsername = pref.getString("myUsername", null);
+            if (myUsername == null) {
                 databaseReference.child("users").child(FirebaseAuth.getInstance().getUid()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        username = dataSnapshot.getValue(String.class);
-//                    Log.d("username", username);
-                        editor.putString("username", username);
+                        myUsername = dataSnapshot.getValue(String.class);
+//                    Log.d("myUsername", myUsername);
+                        editor.putString("myUsername", myUsername);
                         editor.commit();
                     }
 
@@ -121,7 +120,11 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_logout:
                 // TODO: Add sassy message if they try to click while logged out.
-                editor.remove("userid");
+//                editor.remove("userid");
+                editor.clear();
+                editor.commit();
+                editor.putBoolean("nightmode", nightMode); // TODO: Fix this. It doesn't work for some reason.
+                // TODO: Add necessary other settings to store even upon logout...
                 editor.commit();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();

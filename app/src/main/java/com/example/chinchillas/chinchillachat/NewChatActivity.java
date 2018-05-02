@@ -43,10 +43,10 @@ public class NewChatActivity extends ChinchillaChatActivity {
                 String usernames = editText.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), ChatActivityTest.class);
                 //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
-                // TODO: check if username is a valid username
+                // TODO: check if myUsername is a valid myUsername
                 ArrayList<String> friendUsernames = getUsernamesListFromUsernamesString(usernames);
                 if(friendUsernames.size() == 0) {
-                    Toast.makeText(NewChatActivity.this, "Please enter at least one valid username.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewChatActivity.this, "Please enter at least one valid myUsername.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 intent.putExtra("friendUsernames", friendUsernames);
@@ -66,14 +66,14 @@ public class NewChatActivity extends ChinchillaChatActivity {
                 sb.append(character);
             } else {
                 if (sb.length() > 0) {
-                    // TODO: Check if username is valid...
+                    // TODO: Check if myUsername is valid...
                     usernamesList.add(sb.toString());
                     sb.delete(0,sb.length());
                 }
             }
         }
         if (sb.length() > 0){
-            // TODO: Check if username is valid...
+            // TODO: Check if myUsername is valid...
             usernamesList.add(sb.toString());
             sb.delete(0,sb.length());
         }

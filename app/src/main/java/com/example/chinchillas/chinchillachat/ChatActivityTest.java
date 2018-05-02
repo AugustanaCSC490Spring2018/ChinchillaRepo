@@ -52,7 +52,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         if(firebaseAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-        this.usernameForMe = username;
+        this.usernameForMe = myUsername;
 
         initControls();
     }
@@ -64,15 +64,15 @@ public class ChatActivityTest extends ChinchillaChatActivity {
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         chatLog = new ArrayList<Message>();
         if(chatThreadID == null) {
+            ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
+            chatMembersList.add(myUsername);
             chatThreadReference = databaseReference.child("chats").push();
             chatThreadID = chatThreadReference.getKey();
             HashMap<String, Object> chatMap = new HashMap<>(); // include list of chat members and list of chat messages
-            chatMap.put("members", friendUsernames);
+            chatMap.put("members", chatMembersList);
             chatMap.put("messages", chatLog);
             chatThreadReference.setValue(chatMap);
-//            databaseReference.child("usernames").child(username).child("myChats").child(chatThreadID).setValue(friendUsernames);
-            ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
-            chatMembersList.add(username);
+//            databaseReference.child("usernames").child(myUsername).child("myChats").child(chatThreadID).setValue(friendUsernames);
             for(String name : chatMembersList){ // add list of other chat members
                 ArrayList<String> otherChatMembersList = (ArrayList<String>) chatMembersList.clone();
                 otherChatMembersList.remove(name);

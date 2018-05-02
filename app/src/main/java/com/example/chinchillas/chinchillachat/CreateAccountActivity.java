@@ -106,8 +106,8 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
             // Showing progress dialog at user registration time.
             Toast.makeText(this, "Registering. Please Wait.", Toast.LENGTH_LONG).show();
             final String username = usernameET.getText().toString();
-            final String pseudonym = usernameET.getText().toString(); // TODO: Change this.
-//            databaseReference.child("usernameList").child(username).setValue(true).addOnFailureListener(new OnFailureListener() {
+//            final String pseudonym = usernameET.getText().toString(); // TODO: Change this.
+//            databaseReference.child("usernameList").child(myUsername).setValue(true).addOnFailureListener(new OnFailureListener() {
 //                @Override
 //                public void onFailure(@NonNull Exception e) {
 //                    Toast.makeText(CreateAccountActivity.this, "Username already in use.", Toast.LENGTH_LONG).show();
@@ -139,13 +139,13 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
                         Toast.makeText(CreateAccountActivity.this, "Congratulations! Your account has been created.", Toast.LENGTH_LONG).show();
                         String userID = firebaseAuth.getCurrentUser().getUid();
 //                        editor.putString("userid", userID);
-                        User newUser = new User(username, mail, pseudonym);
+                        User newUser = new User(username, mail);
                         databaseReference.child("users").child(userID).setValue(newUser.toMap());
                         databaseReference.child("usernameList").child(username).setValue(userID);
-                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
+//                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
                         databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(userID);
                         editor.putString("myUsername", username);
-                        editor.putString("myPseudonym", pseudonym);
+//                        editor.putString("myPseudonym", pseudonym);
                         verifyUser();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -206,12 +206,12 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
     }
 
 //    /**
-//     * @param username
-//     * @return true if the username is already in use, false otherwise
+//     * @param myUsername
+//     * @return true if the myUsername is already in use, false otherwise
 //     */
-//    public boolean isUsernameTaken(final String username) {
+//    public boolean isUsernameTaken(final String myUsername) {
 //        boolean usernameAlreadyExists = false;
-//        databaseReference.child("usernamesList").child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+//        databaseReference.child("usernamesList").child(myUsername).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //                if(dataSnapshot != null) {
@@ -220,7 +220,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 //                        if(snap != null) {
 //                            usernameIsTaken = snap.getValue() != null;
 ////                            String user = (String) snap.getValue();
-////                            if (user.equalsIgnoreCase(username)) {
+////                            if (user.equalsIgnoreCase(myUsername)) {
 ////                                usernameIsTaken = true;
 ////                            }
 //                        }

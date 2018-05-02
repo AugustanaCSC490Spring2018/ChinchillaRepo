@@ -38,7 +38,7 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String pseu = getIntent().getStringExtra("pseudonym");
-        final String username = getIntent().getStringExtra("username");
+        final String username = getIntent().getStringExtra("myUsername");
         final String pseudonym = pseu == null ? username : pseu;
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
