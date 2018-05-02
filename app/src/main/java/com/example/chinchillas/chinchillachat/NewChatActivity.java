@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.chinchillas.chinchillachat.datamodel.MessageThread;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,8 +38,8 @@ public class NewChatActivity extends ChinchillaChatActivity {
             @Override
             public void onClick(View view) {
                 String usernames = editText.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), ChatActivityTest.class);
-                //  Intent intent = new Intent(getApplicationContext(), MessageThreadActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                //  Intent intent = new Intent(getApplicationContext(), DeprecatedMessageThreadActivity.class);
                 // TODO: check if myUsername is a valid myUsername
                 ArrayList<String> friendUsernames = getUsernamesListFromUsernamesString(usernames);
                 if(friendUsernames.size() == 0) {

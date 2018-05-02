@@ -17,10 +17,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Deprecated. Use ChatListActivity instead.
+ */
 
-public class MessageThreadActivity extends ChinchillaChatActivity {
+public class DeprecatedMessageThreadActivity extends ChinchillaChatActivity {
 
     private FirebaseAuth firebaseAuth;
 
@@ -130,7 +131,7 @@ public class MessageThreadActivity extends ChinchillaChatActivity {
     }
 
     private void addMessageInTextView(String messageStr) {
-        TextView messageTV = new TextView(MessageThreadActivity.this);
+        TextView messageTV = new TextView(DeprecatedMessageThreadActivity.this);
         messageTV.setText(messageStr);
         layout.addView(messageTV);
     }

@@ -16,6 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class replaces DeprecatedMessageThreadActivity.
+ */
+
 public class ChatListActivity extends ChinchillaChatActivity {
     private Button newChatBtn;
     private ListView listView;
@@ -63,7 +67,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(ChatListActivity.this, ChatActivityTest.class);
+                            Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
                             intent.putExtra("chatThreadID", chatsByID.get(position));
                             startActivity(intent);
                         }
@@ -107,7 +111,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
 //                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //                            @Override
 //                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                                Intent intent = new Intent(ChatListActivity.this, ChatActivityTest.class);
+//                                Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
 //                                intent.putExtra("chatThreadID", chatsByMemberNames.get(position));
 //                                startActivity(intent);
 //                            }

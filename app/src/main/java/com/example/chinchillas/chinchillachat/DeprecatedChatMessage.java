@@ -2,9 +2,11 @@ package com.example.chinchillas.chinchillachat;
 
 /**
  * Created by angelicagarcia16 on 4/23/2018.
+ *
+ * Deprecated. Use Message instead.
  */
 
-public class ChatMessage {
+public class DeprecatedChatMessage {
     private long id;
     private boolean isMe;
     private String message;

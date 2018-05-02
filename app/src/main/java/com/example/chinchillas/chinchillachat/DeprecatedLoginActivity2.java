@@ -15,9 +15,11 @@ import com.google.firebase.auth.FirebaseAuth;
  * Created by ivyvecna15 on 4/9/2018.
  *
  * INCOMPLETE, DO NOT TRY TO USE.
+ *
+ * Deprecated. Use LoginActivity instead.
  */
 
-public class LoginActivity2 extends AppCompatActivity {
+public class DeprecatedLoginActivity2 extends AppCompatActivity {
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.

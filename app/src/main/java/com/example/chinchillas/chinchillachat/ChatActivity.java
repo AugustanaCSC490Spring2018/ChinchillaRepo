@@ -28,7 +28,7 @@ import java.util.List;
  * Source: https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI
  */
 
-public class ChatActivityTest extends ChinchillaChatActivity {
+public class ChatActivity extends ChinchillaChatActivity {
 
     private EditText messageET;
     private ListView messagesContainer;
@@ -113,7 +113,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
             }
         });
 
-        adapter = new ChatAdapter(ChatActivityTest.this, chatLog, usernameForMe);
+        adapter = new ChatAdapter(ChatActivity.this, chatLog, usernameForMe);
         messagesContainer.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         scroll();
@@ -148,13 +148,13 @@ public class ChatActivityTest extends ChinchillaChatActivity {
 
 //    private void loadDummyHistory() {
 //
-//                ChatMessage msg = new ChatMessage();
+//                DeprecatedChatMessage msg = new DeprecatedChatMessage();
 //        msg.setId(1);
 //        msg.setMe(false);
 //        msg.setMessage("Howdy");
 //        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
 //        chatLog.add(msg);
-//        ChatMessage msg1 = new ChatMessage();
+//        DeprecatedChatMessage msg1 = new DeprecatedChatMessage();
 //        msg1.setId(2);
 //        msg1.setMe(false);
 //        msg1.setMessage("How r u doing???");
@@ -163,7 +163,7 @@ public class ChatActivityTest extends ChinchillaChatActivity {
 //
 //
 //        for(int i = 0; i< chatLog.size(); i++) {
-//            ChatMessage message = chatLog.get(i);
+//            DeprecatedChatMessage message = chatLog.get(i);
 //            displayMessage(message);
 //        }
 //    }
