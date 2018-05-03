@@ -1,8 +1,14 @@
 package com.example.chinchillas.chinchillachat.datamodel;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
+import java.util.Timer;
 
 /**
  * Created by ivyvecna15 on 4/13/2018.
@@ -54,6 +60,11 @@ public class Message implements Comparable<Message> {
     }
 
     public long getTime() {
+
         return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

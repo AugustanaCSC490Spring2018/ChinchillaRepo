@@ -24,7 +24,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -128,6 +131,9 @@ public class ChatActivity extends ChinchillaChatActivity {
                 }
 
                 Message chatMessage = new Message(messageText, usernameForMe);
+               // chatMessage.setTime(DateFormat.getDateTimeInstance().format(new Date()));
+
+                //chatMessage.setTime(dateAsString);
                 messageET.setText("");
 //                displayMessage(chatMessage);
                 chatThreadMessagesReference.push().setValue(chatMessage);
@@ -147,25 +153,5 @@ public class ChatActivity extends ChinchillaChatActivity {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
-//    private void loadDummyHistory() {
-//
-//                DeprecatedChatMessage msg = new DeprecatedChatMessage();
-//        msg.setId(1);
-//        msg.setMe(false);
-//        msg.setMessage("Howdy");
-//        msg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-//        chatLog.add(msg);
-//        DeprecatedChatMessage msg1 = new DeprecatedChatMessage();
-//        msg1.setId(2);
-//        msg1.setMe(false);
-//        msg1.setMessage("How r u doing???");
-//        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-//        chatLog.add(msg1);
-//
-//
-//        for(int i = 0; i< chatLog.size(); i++) {
-//            DeprecatedChatMessage message = chatLog.get(i);
-//            displayMessage(message);
-//        }
-//    }
+
 }

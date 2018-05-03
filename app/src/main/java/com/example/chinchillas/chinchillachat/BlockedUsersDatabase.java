@@ -12,8 +12,5 @@ package com.example.chinchillas.chinchillachat;
 
 public class BlockedUsersDatabase {
 
-    public static String userPseudos[] = {
-            "BlueOstrich", "RedKoala", "OrangeOrca",
-            "PurpleArmadillo", "SilverTurtle",
-            "BlackQuail"};
+    public static String userPseudos[] = {};
 }

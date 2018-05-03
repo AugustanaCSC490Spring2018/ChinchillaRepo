@@ -13,10 +13,16 @@ import android.widget.TextView;
 
 import com.example.chinchillas.chinchillachat.datamodel.Message;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Angelica Garcia on 4/23/2018.
+ *
+ * Sources: https://stackoverflow.com/questions/11773369/convert-from-long-to-date-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+ *          for Date format
  */
 
 public class ChatAdapter extends BaseAdapter {
@@ -72,7 +78,13 @@ public class ChatAdapter extends BaseAdapter {
         //to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtInfo.setText("time: " + chatMessage.getTime());
+        holder.txtInfo.setText("time: " + String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(chatMessage.getTime()),
+                TimeUnit.MILLISECONDS.toMinutes(chatMessage.getTime()) -
+                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(chatMessage.getTime())),
+                TimeUnit.MILLISECONDS.toSeconds(chatMessage.getTime()) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chatMessage.getTime()))));
+       // holder.txtInfo.setText("time: " + new SimpleDateFormat("MM/dd/yyyy").format(new Date(chatMessage.getTime()))); // this displays the date
+        // displayed in chat -- "time:" is for debugging only!
 
         return convertView;
     }
