@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
  *
  * Sources: https://stackoverflow.com/questions/11773369/convert-from-long-to-date-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
  *          for Date format
+ *          https://stackoverflow.com/questions/9027317/how-to-convert-milliseconds-to-hhmmss-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+ *          for time format
  */
 
 public class ChatAdapter extends BaseAdapter {
