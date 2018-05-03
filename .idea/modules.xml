@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ChinchillaRepo.iml" filepath="$PROJECT_DIR$/ChinchillaRepo.iml" />
       <module fileurl="file://H:\Classes\S201718\CSC490\Chinchillas\ChinchillaRepo.iml" filepath="H:\Classes\S201718\CSC490\Chinchillas\ChinchillaRepo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Chinchillas.iml" filepath="$PROJECT_DIR$/Chinchillas.iml" />
       <module fileurl="file://C:\Users\black_000\Documents\Augie-AG\CSC490\SpeechRecDemo\ChinchillaRepo\Chinchillas.iml" filepath="C:\Users\black_000\Documents\Augie-AG\CSC490\SpeechRecDemo\ChinchillaRepo\Chinchillas.iml" />
       <module fileurl="file://C:\Users\black_000\Documents\Augie-AG\CSC490\ChinchillaChat\Chinchillas\ChinchillaRepo\Chinchillas.iml" filepath="C:\Users\black_000\Documents\Augie-AG\CSC490\ChinchillaChat\Chinchillas\ChinchillaRepo\Chinchillas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

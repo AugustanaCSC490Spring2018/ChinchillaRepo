@@ -1,7 +1,11 @@
 package com.example.chinchillas.chinchillachat;
 
 /**
- * Created by angelicagarcia16 on 4/23/2018.
+ * Created by Angelica Garcia on 4/23/2018.
+ */
+
+/**
+ * Source: https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI
  */
 
 import android.content.Intent;
@@ -24,9 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Source: https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI
- */
 
 public class ChatActivity extends ChinchillaChatActivity {
 

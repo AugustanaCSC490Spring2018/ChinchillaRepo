@@ -16,7 +16,7 @@ import com.example.chinchillas.chinchillachat.datamodel.Message;
 import java.util.List;
 
 /**
- * Created by angelicagarcia16 on 4/23/2018.
+ * Created by Angelica Garcia on 4/23/2018.
  */
 
 public class ChatAdapter extends BaseAdapter {
