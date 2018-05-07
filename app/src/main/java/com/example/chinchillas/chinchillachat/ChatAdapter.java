@@ -2,6 +2,7 @@ package com.example.chinchillas.chinchillachat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +14,15 @@ import android.widget.TextView;
 
 import com.example.chinchillas.chinchillachat.datamodel.Message;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Angelica Garcia on 4/23/2018.
- *
+ * <p>
  * Sources: https://stackoverflow.com/questions/11773369/convert-from-long-to-date-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
- *          for Date format
- *          https://stackoverflow.com/questions/9027317/how-to-convert-milliseconds-to-hhmmss-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
- *          for time format
+ * for Date format
+ * https://stackoverflow.com/questions/9027317/how-to-convert-milliseconds-to-hhmmss-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+ * for time format
  */
 
 public class ChatAdapter extends BaseAdapter {
@@ -75,19 +73,15 @@ public class ChatAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-        boolean myMsg = chatMessage.getSenderID().equals(usernameForMe);
+        String sender = chatMessage.getSenderID();
+        boolean myMsg = sender.equals(usernameForMe);
         //to simulate whether it me or other sender
         setAlignment(holder, myMsg);
         holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtInfo.setText("time: " + String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(chatMessage.getTime()),
-                TimeUnit.MILLISECONDS.toMinutes(chatMessage.getTime()) -
-                        TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(chatMessage.getTime())),
-                TimeUnit.MILLISECONDS.toSeconds(chatMessage.getTime()) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(chatMessage.getTime()))));
-       // holder.txtInfo.setText("time: " + new SimpleDateFormat("MM/dd/yyyy").format(new Date(chatMessage.getTime()))); // this displays the date
-        // displayed in chat -- "time:" is for debugging only!
-
+        holder.txtInfo.setText(sender);
+        holder.txtTime.setText(DateFormat.format("MM-dd-yyyy (HH:mm:ss)",
+                chatMessage.getTime()));
+        //above code displays the name of the user who sent the message and the date and time sent in military time
         return convertView;
     }
 
@@ -120,6 +114,10 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.LEFT;
             holder.txtInfo.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.txtTime.getLayoutParams();
+            layoutParams.gravity = Gravity.RIGHT;
+            holder.txtTime.setLayoutParams(layoutParams);
         } else {
             holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
             LinearLayout.LayoutParams layoutParams =
@@ -139,6 +137,10 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
+
+            layoutParams = (LinearLayout.LayoutParams) holder.txtTime.getLayoutParams();
+            layoutParams.gravity = Gravity.LEFT;
+            holder.txtTime.setLayoutParams(layoutParams);
         }
     }
 
@@ -147,13 +149,15 @@ public class ChatAdapter extends BaseAdapter {
         holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBG);
-        holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
+        holder.txtTime = (TextView) v.findViewById(R.id.txtTime);
+        holder.txtInfo = (TextView) v.findViewById(R.id.txtUser);
         return holder;
     }
 
     private static class ViewHolder {
         public TextView txtMessage;
         public TextView txtInfo;
+        public TextView txtTime;
         public LinearLayout content;
         public LinearLayout contentWithBG;
     }

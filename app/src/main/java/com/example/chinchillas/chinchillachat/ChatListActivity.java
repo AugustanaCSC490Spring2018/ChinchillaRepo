@@ -57,7 +57,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
                     String chatID = dataSnapshot.getKey();
                     chatsByID.add(chatID);
                     StringBuilder str = new StringBuilder();
-                    for(int i=0; i<chatnames.size() - 1; i++){
+                    for (int i = 0; i < chatnames.size() - 1; i++) {
                         str.append(chatnames.get(i) + ", ");
                     }
                     str.append(chatnames.get(chatnames.size() - 1));

@@ -24,10 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class ChatActivity extends ChinchillaChatActivity {
         super.onCreate(savedInstanceState);
         chatThreadID = getIntent().getStringExtra("chatThreadID");
         friendUsernames = getIntent().getStringArrayListExtra("friendUsernames");
-        setContentView(R.layout.activity_chattest);
+        setContentView(R.layout.activity_chatscreen);
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
