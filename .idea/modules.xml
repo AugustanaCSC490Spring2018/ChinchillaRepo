@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ChinchillaRepo.iml" filepath="$PROJECT_DIR$/ChinchillaRepo.iml" />
-      <module fileurl="file://H:/Classes/S201718/CSC490/Chinchillas/ChinchillaRepo.iml" filepath="H:/Classes/S201718/CSC490/Chinchillas/ChinchillaRepo.iml" />
+      <module fileurl="file://H:\Classes\S201718\CSC490\Chinchillas\ChinchillaRepo.iml" filepath="H:\Classes\S201718\CSC490\Chinchillas\ChinchillaRepo.iml" />
       <module fileurl="file://$PROJECT_DIR$/Chinchillas.iml" filepath="$PROJECT_DIR$/Chinchillas.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../SpeechRecDemo/ChinchillaRepo/Chinchillas.iml" filepath="$PROJECT_DIR$/../../../SpeechRecDemo/ChinchillaRepo/Chinchillas.iml" />
+      <module fileurl="file://H:\Classes\SpeechRecDemo\ChinchillaRepo\Chinchillas.iml" filepath="H:\Classes\SpeechRecDemo\ChinchillaRepo\Chinchillas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../SpeechRecDemo/ChinchillaRepo/app/app.iml" filepath="$PROJECT_DIR$/../../../SpeechRecDemo/ChinchillaRepo/app/app.iml" />
+      <module fileurl="file://H:\Classes\SpeechRecDemo\ChinchillaRepo\app\app.iml" filepath="H:\Classes\SpeechRecDemo\ChinchillaRepo\app\app.iml" />
     </modules>
   </component>
 </project>

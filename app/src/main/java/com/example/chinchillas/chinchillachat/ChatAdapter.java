@@ -28,13 +28,15 @@ import java.util.List;
 public class ChatAdapter extends BaseAdapter {
 
     private final List<Message> chatMessages;
+    private final List<String> friendUsernames;
     private Activity context;
     private String usernameForMe;
 
-    public ChatAdapter(Activity context, List<Message> chatMessages, String usernameForMe) {
+    public ChatAdapter(Activity context, List<Message> chatMessages, String usernameForMe, List<String> friendUsernames) {
         this.context = context;
         this.chatMessages = chatMessages;
         this.usernameForMe = usernameForMe;
+        this.friendUsernames = friendUsernames;
     }
 
     @Override
@@ -74,12 +76,11 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         String sender = chatMessage.getSenderID();
-        boolean myMsg = sender.equals(usernameForMe);
         //to simulate whether it me or other sender
-        setAlignment(holder, myMsg);
+        setAlignment(holder, sender);
         holder.txtMessage.setText(chatMessage.getMessage());
         holder.txtInfo.setText(sender);
-        holder.txtTime.setText(DateFormat.format("MM-dd-yyyy (HH:mm:ss)",
+        holder.txtTime.setText(DateFormat.format("MMM dd, yyyy (hh:mm aa)",
                 chatMessage.getTime()));
         //above code displays the name of the user who sent the message and the date and time sent in military time
         return convertView;
@@ -93,9 +94,11 @@ public class ChatAdapter extends BaseAdapter {
         chatMessages.addAll(messages);
     }
 
-    private void setAlignment(ViewHolder holder, boolean isMe) {
-        if (!isMe) {
-            holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
+    private void setAlignment(ViewHolder holder, String sender) {
+        if (!sender.equals(usernameForMe)) {
+            int friendNumber = friendUsernames.indexOf(sender);
+            int[] out_message_resource_IDs = new int[] { R.drawable.out_message_bg, R.drawable.out_message_bg2 };
+            holder.contentWithBG.setBackgroundResource(out_message_resource_IDs[friendNumber % out_message_resource_IDs.length]);
 
             LinearLayout.LayoutParams layoutParams =
                     (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();

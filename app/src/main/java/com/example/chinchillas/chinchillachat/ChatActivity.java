@@ -114,7 +114,7 @@ public class ChatActivity extends ChinchillaChatActivity {
             }
         });
 
-        adapter = new ChatAdapter(ChatActivity.this, chatLog, usernameForMe);
+        adapter = new ChatAdapter(ChatActivity.this, chatLog, usernameForMe, friendUsernames);
         messagesContainer.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         scroll();
