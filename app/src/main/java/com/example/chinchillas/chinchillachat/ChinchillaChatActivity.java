@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -130,7 +131,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         myUsername = dataSnapshot.getValue(String.class);
-//                    Log.d("myUsername", myUsername);
+                        Log.d("myUsername", myUsername);
                         editor.putString("myUsername", myUsername);
                         editor.commit();
                     }

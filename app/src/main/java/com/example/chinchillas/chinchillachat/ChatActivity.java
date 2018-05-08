@@ -81,6 +81,7 @@ public class ChatActivity extends ChinchillaChatActivity {
             }
         } else {
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
+
         }
         chatThreadMessagesReference = chatThreadReference.child("messages");
 

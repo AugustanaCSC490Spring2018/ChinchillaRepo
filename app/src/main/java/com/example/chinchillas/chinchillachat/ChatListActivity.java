@@ -53,7 +53,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (dataSnapshot != null) {
-                    List<String> chatnames = (ArrayList<String>) dataSnapshot.getValue();
+                    final ArrayList<String> chatnames = (ArrayList<String>) dataSnapshot.getValue();
                     String chatID = dataSnapshot.getKey();
                     chatsByID.add(chatID);
                     StringBuilder str = new StringBuilder();
@@ -69,6 +69,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent intent = new Intent(ChatListActivity.this, ChatActivity.class);
                             intent.putExtra("chatThreadID", chatsByID.get(position));
+                            intent.putExtra("friendUsernames", chatnames);
                             startActivity(intent);
                         }
                     });
