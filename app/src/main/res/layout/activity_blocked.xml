@@ -16,13 +16,21 @@
             android:text="@string/blocked_users_title"/>
 
         <ListView
+            android:id="@+id/blockedList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/blockedusersTV"
+            android:layout_above="@+id/blockUserButton"
             android:layout_alignEnd="@id/blockedusersTV"
-            android:id="@+id/blockedList"
+            android:layout_alignStart="@id/blockedusersTV"
             android:layout_below="@id/blockedusersTV"
             android:layout_marginTop="@dimen/activity_vertical_margin">
-
         </ListView>
+
+        <Button
+            android:id="@+id/blockUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/block_new_user" />
 </RelativeLayout>
