@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:background="@drawable/in_message_bg"
+            android:background="@drawable/out_message_bg"
             android:orientation="vertical"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp">

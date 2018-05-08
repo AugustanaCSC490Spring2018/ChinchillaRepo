@@ -97,7 +97,13 @@ public class ChatAdapter extends BaseAdapter {
     private void setAlignment(ViewHolder holder, String sender) {
         if (!sender.equals(usernameForMe)) {
             int friendNumber = friendUsernames.indexOf(sender);
-            int[] out_message_resource_IDs = new int[] { R.drawable.out_message_bg, R.drawable.out_message_bg2 };
+            int[] out_message_resource_IDs = new int[] { R.drawable.in_message_bg, R.drawable.in_message_bgbluegreen,
+                    R.drawable.in_message_bgperiwinkle, R.drawable.in_message_bgviolet,
+                    R.drawable.in_message_bggreyblue, R.drawable.in_message_bghotpink,
+                    R.drawable.in_message_bgverylightorange, R.drawable.in_message_bgpwinered,
+                    R.drawable.in_message_bglightpink, R.drawable.in_message_bglightyellow,
+                    R.drawable.in_message_bgsoftgreen, R.drawable.in_message_bgpalepurple,
+                    R.drawable.in_message_bggreen, R.drawable.in_message_bglightred};
             holder.contentWithBG.setBackgroundResource(out_message_resource_IDs[friendNumber % out_message_resource_IDs.length]);
 
             LinearLayout.LayoutParams layoutParams =
@@ -122,7 +128,7 @@ public class ChatAdapter extends BaseAdapter {
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtTime.setLayoutParams(layoutParams);
         } else {
-            holder.contentWithBG.setBackgroundResource(R.drawable.in_message_bg);
+            holder.contentWithBG.setBackgroundResource(R.drawable.out_message_bg);
             LinearLayout.LayoutParams layoutParams =
                     (LinearLayout.LayoutParams) holder.contentWithBG.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
