@@ -84,9 +84,9 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         if(!isUsernameValid(user)){
             sb.append("Usernames may only contain letters and numbers.\n");
         }
-//        if(isUsernameTaken(user)){
-//            sb.append("Username already taken.\n");
-//        }
+        if(isUsernameTaken(user)){
+            sb.append("Username already taken.\n");
+        }
         if(!isEmailValid(mail)){
             sb.append("Must use an @augustana.edu email.\n");
         }
@@ -141,7 +141,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 //                        editor.putString("userid", userID);
                         User newUser = new User(username, mail);
                         databaseReference.child("users").child(userID).setValue(newUser.toMap());
-                        databaseReference.child("usernameList").child(username).setValue(userID);
+                        databaseReference.child("usernameList").child(username.toUpperCase()).setValue(username);
 //                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
                         databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(userID);
                         editor.putString("myUsername", username);
@@ -205,35 +205,12 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         return true;
     }
 
-//    /**
-//     * @param myUsername
-//     * @return true if the myUsername is already in use, false otherwise
-//     */
-//    public boolean isUsernameTaken(final String myUsername) {
-//        boolean usernameAlreadyExists = false;
-//        databaseReference.child("usernamesList").child(myUsername).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot != null) {
-//                    usernameIsTaken = dataSnapshot.getValue() != null;
-//                    for (DataSnapshot snap : dataSnapshot.getChildren()) {
-//                        if(snap != null) {
-//                            usernameIsTaken = snap.getValue() != null;
-////                            String user = (String) snap.getValue();
-////                            if (user.equalsIgnoreCase(myUsername)) {
-////                                usernameIsTaken = true;
-////                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//        return usernameIsTaken;
-//    }
+    /**
+     * @param myUsername
+     * @return true if the myUsername is already in use, false otherwise
+     */
+    public boolean isUsernameTaken(final String myUsername) {
+        return setOfAllUsernames.contains(myUsername.toUpperCase());
+    }
 
 }

@@ -97,7 +97,7 @@ public class ChatAdapter extends BaseAdapter {
     private void setAlignment(ViewHolder holder, String sender) {
         if (!sender.equals(usernameForMe)) {
             int friendNumber = friendUsernames.indexOf(sender);
-            int[] out_message_resource_IDs = new int[] { R.drawable.out_message_bg, R.drawable.out_message_bg2 };
+            int[] out_message_resource_IDs = new int[] { R.drawable.out_message_bg}; //, R.drawable.out_message_bg2 };
             holder.contentWithBG.setBackgroundResource(out_message_resource_IDs[friendNumber % out_message_resource_IDs.length]);
 
             LinearLayout.LayoutParams layoutParams =

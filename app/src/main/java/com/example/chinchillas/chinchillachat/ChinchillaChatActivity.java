@@ -10,12 +10,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.securepreferences.SecurePreferences;
+
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * This class extends AppCompatActivity and can be extended by any other activity.
@@ -34,6 +39,9 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     protected DatabaseReference databaseReference;
 
     protected String myUsername;
+
+    protected Set<String> setOfAllUsernames;
+    protected Set<String> setOfBlockedUsers;
 
 //    This class uses SecurePreferences
 //    https://github.com/scottyab/secure-preferences
@@ -74,6 +82,41 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         pref = new SecurePreferences(getApplicationContext());
         editor = pref.edit();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        setOfAllUsernames = pref.getStringSet("setOfAllUsernames", new HashSet<String>());
+        databaseReference.child("usernameList").addChildEventListener(new ChildEventListener() {
+            // usernames should appear in usernameList in the form:
+            // key: USERNAME (in all caps)
+            // value: username (as spelled by user)
+            // e.g. (MYUSERNAME1, MyUsername1)
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                setOfAllUsernames.add(dataSnapshot.getKey());
+                editor.putStringSet("setOfAllUsernames", setOfAllUsernames);
+                editor.commit();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                setOfAllUsernames.remove(dataSnapshot.getKey());
+                editor.putStringSet("setOfAllUsernames", setOfAllUsernames);
+                editor.commit();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
         if (nightMode) {
             setTheme(R.style.NightTheme);
@@ -90,6 +133,39 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 //                    Log.d("myUsername", myUsername);
                         editor.putString("myUsername", myUsername);
                         editor.commit();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            setOfBlockedUsers = pref.getStringSet("setOfBlockedUsers", new HashSet<String>());
+            if(myUsername != null) {
+                databaseReference.child("blockedUsers").child(myUsername).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        setOfBlockedUsers.add(dataSnapshot.getKey());
+                        editor.putStringSet("setOfBlockedUsers", setOfBlockedUsers);
+                        editor.commit();
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        setOfBlockedUsers.remove(dataSnapshot.getKey());
+                        editor.putStringSet("setOfBlockedUsers", setOfBlockedUsers);
+                        editor.commit();
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
                     }
 
                     @Override
