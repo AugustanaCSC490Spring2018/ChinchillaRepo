@@ -182,7 +182,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      * @return true if the password is "secure enough", false otherwise
      */
     public static boolean isPasswordValid(String password) {
-//        return PasswordAnalysis.passwordComplexity(password) > PasswordAnalysis.NUM_SECONDS_PER_DAY; // password will take more than 1 day to crack
+  //      return PasswordAnalysis.passwordComplexity(password) > PasswordAnalysis.NUM_SECONDS_PER_DAY; // password will take more than 1 day to crack
         return password.length() >= 6; // bare minimum length, for testing
     }
 
