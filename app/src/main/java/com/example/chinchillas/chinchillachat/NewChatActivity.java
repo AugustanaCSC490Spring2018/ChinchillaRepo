@@ -63,8 +63,9 @@ public class NewChatActivity extends ChinchillaChatActivity {
             } else {
                 if (sb.length() > 0) {
                     String usernameToAdd = sb.toString();
-                    if(setOfAllUsernames.contains(usernameToAdd)) {
-                        usernamesList.add(usernameToAdd);
+                    if(userPrefs.contains(usernameToAdd)) {
+                        // put in appropriate capitalization based on the way that user input it originally
+                        usernamesList.add(userPrefs.getString(usernameToAdd, usernameToAdd));
                         sb.delete(0, sb.length());
                     }
                 }
@@ -72,8 +73,9 @@ public class NewChatActivity extends ChinchillaChatActivity {
         }
         if (sb.length() > 0){
             String usernameToAdd = sb.toString();
-            if(setOfAllUsernames.contains(usernameToAdd)) {
-                usernamesList.add(usernameToAdd);
+            if(userPrefs.contains(usernameToAdd)) {
+                // put in appropriate capitalization based on the way that user input it originally
+                usernamesList.add(userPrefs.getString(usernameToAdd, usernameToAdd));
                 sb.delete(0, sb.length());
             }
         }

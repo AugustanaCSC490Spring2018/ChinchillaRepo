@@ -3,26 +3,16 @@ package com.example.chinchillas.chinchillachat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.chinchillas.chinchillachat.datamodel.Pseudouser;
 import com.example.chinchillas.chinchillachat.datamodel.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by angelicagarcia16 on 4/9/2018.
@@ -141,6 +131,8 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 //                        editor.putString("userid", userID);
                         User newUser = new User(username, mail);
                         databaseReference.child("users").child(userID).setValue(newUser.toMap());
+
+                        // usernameList is a map of usernames in all caps to usernames as input by users.
                         databaseReference.child("usernameList").child(username.toUpperCase()).setValue(username);
 //                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
                         databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(userID);
@@ -210,7 +202,7 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
      * @return true if the myUsername is already in use, false otherwise
      */
     public boolean isUsernameTaken(final String myUsername) {
-        return setOfAllUsernames.contains(myUsername.toUpperCase());
+        return userPrefs.contains(myUsername.toUpperCase());
     }
 
 }

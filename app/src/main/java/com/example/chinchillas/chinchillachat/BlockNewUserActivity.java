@@ -29,7 +29,7 @@ public class BlockNewUserActivity extends ChinchillaChatActivity {
 
     private void blockUser() {
         String usernameToBlock = usernameET.getText().toString();
-        if(setOfAllUsernames.contains(usernameToBlock)){
+        if(userPrefs.contains(usernameToBlock)){
             databaseReference.child("blockedUsers").child(myUsername).child(usernameToBlock).setValue(true);
         } else {
             usernameET.setError(getString(R.string.user_dne));

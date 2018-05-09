@@ -1,5 +1,6 @@
 package com.example.chinchillas.chinchillachat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.securepreferences.SecurePreferences;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -35,13 +37,19 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     // used for theme, login
     protected SecurePreferences pref;
 
+    // map of usernames in all caps to usernames as input by user
+    protected SharedPreferences userPrefs;
+    protected SharedPreferences.Editor userPrefsEditor;
+
     protected SharedPreferences.Editor editor;
 
     protected DatabaseReference databaseReference;
 
     protected String myUsername;
 
-    protected Set<String> setOfAllUsernames;
+//     map of usernames in all caps to usernames as input by user - same as userPrefs
+//    protected Map<String, String> mapOfAllUsernames;
+
     protected Set<String> setOfBlockedUsers;
 
 //    This class uses SecurePreferences
@@ -82,8 +90,10 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         pref = new SecurePreferences(getApplicationContext());
         editor = pref.edit();
+        userPrefs = getApplicationContext().getSharedPreferences("userPrefs", MODE_PRIVATE);
+        userPrefsEditor = userPrefs.edit();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        setOfAllUsernames = pref.getStringSet("setOfAllUsernames", new HashSet<String>());
+//        mapOfAllUsernames = pref.get("mapOfAllUsernames", new HashSet<String>());
         databaseReference.child("usernameList").addChildEventListener(new ChildEventListener() {
             // usernames should appear in usernameList in the form:
             // key: USERNAME (in all caps)
@@ -91,9 +101,9 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             // e.g. (MYUSERNAME1, MyUsername1)
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                setOfAllUsernames.add(dataSnapshot.getKey());
-                editor.putStringSet("setOfAllUsernames", setOfAllUsernames);
-                editor.commit();
+                userPrefsEditor.putString(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
+                userPrefsEditor.commit();
+//                mapOfAllUsernames.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -103,9 +113,11 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                setOfAllUsernames.remove(dataSnapshot.getKey());
-                editor.putStringSet("setOfAllUsernames", setOfAllUsernames);
-                editor.commit();
+                userPrefsEditor.remove(dataSnapshot.getKey());
+                userPrefsEditor.commit();
+//                mapOfAllUsernames.remove(dataSnapshot.getKey());
+//                editor.putStringSet("mapOfAllUsernames", mapOfAllUsernames);
+//                editor.commit();
             }
 
             @Override
