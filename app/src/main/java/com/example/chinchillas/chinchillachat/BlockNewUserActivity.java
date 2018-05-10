@@ -20,19 +20,22 @@ public class BlockNewUserActivity extends ChinchillaChatActivity {
         blockUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                blockUser();
-                startActivity(new Intent(getApplicationContext(), BlockedUsersActivity.class));
-                finish();
+                if(blockUser()) {
+                    startActivity(new Intent(getApplicationContext(), BlockedUsersActivity.class));
+                    finish();
+                }
             }
         });
     }
 
-    private void blockUser() {
-        String usernameToBlock = usernameET.getText().toString();
+    private boolean blockUser() {
+        String usernameToBlock = usernameET.getText().toString().toUpperCase();
         if(userPrefs.contains(usernameToBlock)){
-            databaseReference.child("blockedUsers").child(myUsername).child(usernameToBlock).setValue(true);
+            databaseReference.child("blockedUsers").child(myUsername).child(userPrefs.getString(usernameToBlock, null)).setValue(true);
+            return true;
         } else {
             usernameET.setError(getString(R.string.user_dne));
+            return false;
         }
     }
 }

@@ -10,14 +10,17 @@ package com.example.chinchillas.chinchillachat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.chinchillas.chinchillachat.datamodel.Message;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -77,7 +80,12 @@ public class ChatActivity extends ChinchillaChatActivity {
             for(String name : chatMembersList){ // add list of other chat members
                 ArrayList<String> otherChatMembersList = (ArrayList<String>) chatMembersList.clone();
                 otherChatMembersList.remove(name);
-                databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList);
+                databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_SHORT);
+                    }
+                });
             }
         } else {
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
