@@ -156,7 +156,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             }
             setOfBlockedUsers = pref.getStringSet("setOfBlockedUsers", new HashSet<String>());
             if(myUsername != null) {
-                databaseReference.child("blockedUsers").child(myUsername).addChildEventListener(new ChildEventListener() {
+                databaseReference.child("blockedUsers").child("blocking").child(myUsername).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         setOfBlockedUsers.add(dataSnapshot.getKey());

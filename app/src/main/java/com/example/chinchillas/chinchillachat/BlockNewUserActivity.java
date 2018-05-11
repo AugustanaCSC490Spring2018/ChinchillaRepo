@@ -31,7 +31,8 @@ public class BlockNewUserActivity extends ChinchillaChatActivity {
     private boolean blockUser() {
         String usernameToBlock = usernameET.getText().toString().toUpperCase();
         if(userPrefs.contains(usernameToBlock)){
-            databaseReference.child("blockedUsers").child(myUsername).child(userPrefs.getString(usernameToBlock, null)).setValue(true);
+            databaseReference.child("blockedUsers").child("blocking").child(myUsername).child(userPrefs.getString(usernameToBlock, null)).setValue(true);
+            databaseReference.child("blockedUsers").child("blockedBy").child(userPrefs.getString(usernameToBlock, null)).child(myUsername).setValue(true);
             return true;
         } else {
             usernameET.setError(getString(R.string.user_dne));

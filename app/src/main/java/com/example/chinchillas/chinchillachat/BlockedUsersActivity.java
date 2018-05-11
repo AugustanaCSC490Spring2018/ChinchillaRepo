@@ -69,7 +69,8 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
                         String username = blockedUsers.get(position);
                         blockedUsers.remove(position);
                         adapter.notifyDataSetChanged();
-                        databaseReference.child("blockedUsers").child(myUsername).child(username).removeValue();
+                        databaseReference.child("blockedUsers").child("blocking").child(myUsername).child(username).removeValue();
+                        databaseReference.child("blockedUsers").child("blockedBy").child(username).child(myUsername).removeValue();
                     }
                 });
 
