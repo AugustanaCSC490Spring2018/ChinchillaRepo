@@ -56,10 +56,16 @@
     <string name="block_user_prompt">Please enter the username of the user you want to block.</string>
     <string name="user_dne">User does not exist.</string>
 
-
     <!-- Strings for the Settings activity -->
     <string name="settings_title">Settings</string>
     <string name="action_confirm_settings">Confirm Settings</string>
+
+    <!-- Strings for the About Activity (including credits)-->
+    <string name="about_title">About</string>
+    <string name="authors">This app was initially created by two Augustana College students,
+    Ivy Vecna and Angelica Garcia, who were inspired by an idea presented by Avery VanOpdorp.</string>
+    <string name="art_credits">Chinchilla Chat logo created by Angelica Garcia. Chat bubble 9-Patch images
+        modified by Angelica Garcia from </string>
 
     <!-- menu item strings -->
     <string name="ui_menu_settings">Settings</string>

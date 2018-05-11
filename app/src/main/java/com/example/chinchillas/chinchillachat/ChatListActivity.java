@@ -16,9 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * This class replaces DeprecatedMessageThreadActivity.
- */
 
 public class ChatListActivity extends ChinchillaChatActivity {
     private Button newChatBtn;

@@ -6,9 +6,6 @@ import android.preference.Preference;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by Angelica Garcia on 4/16/2018.
- */
 
 /**
  * This class defines the Settings activity in the application.
