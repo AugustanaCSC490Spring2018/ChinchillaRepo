@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class PreferencesActivity extends ChinchillaChatActivity {
 
     Spinner spinner;
     private Button findMatchButton;
+    CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

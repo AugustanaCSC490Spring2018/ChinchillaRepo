@@ -226,6 +226,9 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             case R.id.action_blockedusers:
                 startActivity(new Intent(getApplicationContext(), BlockedUsersActivity.class));
                 return true;
+            case R.id.action_about:
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                return true;
             case R.id.action_nightmode:
                 nightMode = !nightMode;
                 editor.putBoolean("nightmode", nightMode);
@@ -238,7 +241,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     }
 
     public void displayComingSoonMessage(){
-        Toast.makeText(ChinchillaChatActivity.this, "Coming soon to an Android device near you!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ChinchillaChatActivity.this, "Sorry, this feature is still in development!", Toast.LENGTH_SHORT).show();
     }
 
 }

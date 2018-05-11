@@ -17,35 +17,34 @@
     <!-- Strings related to email verification -->
     <string name="verify">To verify your account, please click the verification link we sent to your email. You can resend the email below or press Continue.</string>
     <string name="parentheses">(this may take a few seconds)</string>
-    <string name="verify_or_wait_prompt">Please verify your email first.\nIf you verified your email already, please try again in a minute.</string>
+    <string name="verify_or_wait_prompt">Please verify your email first.\nIf you\'ve verified your email already, please try again in a minute.</string>
     <string name="btn_account_verified">Continue</string>
     <string name="resend_verification">Resend Verification Email</string>
-
 
     <string name="error_field_required">This field is required</string>
 
     <!-- Strings for main menu buttons -->
     <string name="action_find_a_friend">Find a Friend</string>
     <string name="action_chat_now">Chat Now!</string>
-    <string name="action_find_match">Find a Match</string>
+    <string name="action_my_chats">My Chats</string>
 
     <!-- Strings for Preferences activity -->
     <string name="looking_for">I\'m looking for someone who identifies as . . .</string>
     <string name="talk_about">I want to talk about topics such as . . . </string>
     <string name="tags_hint">(list items as tags, separated by commas)</string>
+    <string name="action_find_match">Find a Match</string>
 
     <!-- Strings for Matches activity -->
     <string name="available_matches">Available matches:</string>
     <string name="action_start_chat">Start Chatting</string>
 
     <!-- Strings for ChatList activity -->
-    <string name="action_my_chats">My Chats</string>
     <string name="new_conversation_btn">New Chat</string>
 
     <!-- Strings related to new chats -->
     <string name="real_username">Username</string>
     <string name="pseudonym">Pseudonym</string>
-    <string name="prompt_for_usernames">Please enter the username of each friend to be included in the chat, separated by commas.</string>
+    <string name="prompt_for_usernames">Please enter the username of the user you want to start a conversation with.\nTo start a group chat, separate usernames with a comma.</string>
 
     <string name="enter_message_hint">Enter Message</string>
 
@@ -58,18 +57,21 @@
 
     <!-- Strings for the Settings activity -->
     <string name="settings_title">Settings</string>
+    <string name="change_username">Change Username</string>
+    <string name="change_password">Change Password</string>
     <string name="action_confirm_settings">Confirm Settings</string>
 
     <!-- Strings for the About Activity (including credits)-->
-    <string name="about_title">About</string>
-    <string name="authors">This app was initially created by two Augustana College students,
-    Ivy Vecna and Angelica Garcia, who were inspired by an idea presented by Avery VanOpdorp.</string>
-    <string name="art_credits">Chinchilla Chat logo created by Angelica Garcia. Chat bubble 9-Patch images
-        modified by Angelica Garcia from </string>
+    <string name="credits_title">Credits</string>
+    <string name="authors">This app was initially created by two Augustana College students, Ivy Vecna and Angelica Garcia, who were inspired by an idea presented by Avery VanOpdorp.</string>
+    <string name="art_credits">Chinchilla Chat logo created by Angelica Garcia using GIMP.\n\nChat bubble 9-Patch images modified using GIMP by Angelica Garcia from JoCodes\n\n(https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI).\n</string>
+    <string name="sources_title">Sources:</string>
+    <string name="sources">Our application uses SecurePreferences.\n\nhttps://github.com/scottyab/secure-preferences\n\nCopyright (&#169;) 2013, Daniel Abraham, Scott Alexander-Bown\n\nLicensed under the Apache License, Version 2.0 (the "License");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</string>
 
     <!-- menu item strings -->
     <string name="ui_menu_settings">Settings</string>
     <string name="ui_menu_blocked_users">Blocked users</string>
     <string name="ui_menu_nightmode">Night mode</string>
+    <string name="ui_menu_about">About</string>
     <string name="ui_menu_logout">Log out</string>
 </resources>

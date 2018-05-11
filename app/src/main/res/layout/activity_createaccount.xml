@@ -97,6 +97,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
                 android:textAllCaps="false"
+                android:textSize="@dimen/button_text_size"
                 android:text="@string/action_register" />
 
         </LinearLayout>

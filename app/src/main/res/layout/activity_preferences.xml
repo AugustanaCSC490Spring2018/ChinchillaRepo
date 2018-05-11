@@ -63,6 +63,7 @@
         android:id="@+id/findMatchBtn"
         android:layout_alignParentBottom="true"
         android:text="@string/action_find_match"
+        android:textSize="@dimen/button_text_size"
         android:textAllCaps="false"/>
 
 </RelativeLayout>

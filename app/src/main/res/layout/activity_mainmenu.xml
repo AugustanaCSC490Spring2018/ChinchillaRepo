@@ -23,6 +23,7 @@
         android:layout_alignStart="@id/imageView"
         android:layout_alignEnd="@id/imageView"
         android:layout_marginTop="75dp"
+        android:textSize="@dimen/button_text_size"
         android:textAllCaps="false"
         android:text="@string/action_find_a_friend" />
 
@@ -35,6 +36,7 @@
         android:layout_below="@+id/findAFriendButton"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/action_chat_now"
+        android:textSize="@dimen/button_text_size"
         android:textAllCaps="false" />
 
     <Button
@@ -46,6 +48,7 @@
         android:layout_below="@+id/chatNowButton"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/action_my_chats"
+        android:textSize="@dimen/button_text_size"
         android:textAllCaps="false" />
 
 </RelativeLayout>

@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/activity_vertical_margin">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/aboutTitleTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credits_title"
+                android:textSize="@dimen/title_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/>
 
+            <TextView
+                android:id="@+id/aboutAuthorsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/aboutTitleTV"
+                android:text="@string/authors"
+                android:textSize="@dimen/credits_text_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/>
 
+            <TextView
+                android:id="@+id/aboutArtTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/aboutAuthorsTV"
+                android:text="@string/art_credits"
+                android:textSize="@dimen/credits_text_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/>
 
+            <TextView
+                android:id="@+id/sourcesTitleTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/aboutArtTV"
+                android:text="@string/sources_title"
+                android:textSize="@dimen/title_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                android:id="@+id/sourcesTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sourcesTitleTV"
+                android:text="@string/sources"
+                android:textSize="@dimen/credits_text_size"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

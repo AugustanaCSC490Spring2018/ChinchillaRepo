@@ -29,5 +29,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:textAllCaps="false"
+        android:textSize="@dimen/button_text_size"
         android:text="@string/block_user" />
 </RelativeLayout>

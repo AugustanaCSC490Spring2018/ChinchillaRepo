@@ -9,7 +9,8 @@ import android.widget.Button;
 
 /**
  * This class defines the Settings activity in the application.
- * It should have options
+ * It should have options to aenable/disable push notifications
+ * and allow the user to change their username or password.
  */
 
 public class SettingsActivity extends ChinchillaChatActivity {

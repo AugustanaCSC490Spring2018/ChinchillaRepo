@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_account_verified"
+            android:textSize="@dimen/button_text_size"
             android:textAllCaps="false"/>
 
         <Button
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/check_verification_btn"
             android:text="@string/resend_verification"
+            android:textSize="@dimen/button_text_size"
             android:textAllCaps="false"/>
 
     </LinearLayout>

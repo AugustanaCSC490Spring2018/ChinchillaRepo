@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-
+            android:textSize="@dimen/button_text_size"
             android:background="@color/colorAccentNight"
             android:text="Send"
             android:textColor="@color/white"/>
