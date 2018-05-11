@@ -62,20 +62,20 @@ public class NewChatActivity extends ChinchillaChatActivity {
                 sb.append(character);
             } else {
                 if (sb.length() > 0) {
-                    String usernameToAdd = sb.toString();
+                    String usernameToAdd = sb.toString().toUpperCase();
                     if(userPrefs.contains(usernameToAdd)) {
                         // put in appropriate capitalization based on the way that user input it originally
-                        usernamesList.add(userPrefs.getString(usernameToAdd, usernameToAdd));
+                        usernamesList.add(userPrefs.getString(usernameToAdd, null));
                         sb.delete(0, sb.length());
                     }
                 }
             }
         }
         if (sb.length() > 0){
-            String usernameToAdd = sb.toString();
+            String usernameToAdd = sb.toString().toUpperCase();
             if(userPrefs.contains(usernameToAdd)) {
                 // put in appropriate capitalization based on the way that user input it originally
-                usernamesList.add(userPrefs.getString(usernameToAdd, usernameToAdd));
+                usernamesList.add(userPrefs.getString(usernameToAdd, null));
                 sb.delete(0, sb.length());
             }
         }
