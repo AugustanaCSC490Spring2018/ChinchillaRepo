@@ -1,5 +1,7 @@
 package com.example.chinchillas.chinchillachat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -59,7 +61,7 @@ public class ChatListActivity extends ChinchillaChatActivity {
                     }
                     str.append(chatnames.get(chatnames.size() - 1));
                     chatsByMemberNames.add(str.toString());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(ChatListActivity.this, R.layout.text_view, chatsByMemberNames);
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(ChatListActivity.this, R.layout.text_view, chatsByMemberNames);
                     listView.setAdapter(adapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -68,6 +70,29 @@ public class ChatListActivity extends ChinchillaChatActivity {
                             intent.putExtra("chatThreadID", chatsByID.get(position));
                             intent.putExtra("friendUsernames", chatnames);
                             startActivity(intent);
+                        }
+                    });
+                    listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                            // when the user long presses a chat, a prompt asks if they'd like to delete it
+                            AlertDialog.Builder adb = new AlertDialog.Builder(ChatListActivity.this);
+                            adb.setTitle("Leave Chat");
+                            adb.setMessage("Would you like to leave this chat?");
+                            final String chatID = chatsByID.get(position);
+                            adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    chatsByID.remove(position);
+                                    databaseReference.child("usernames").child(myUsername).child("myChats").child(chatID).removeValue();
+                                    adapter.notifyDataSetChanged();
+                                    // finish because it doesn't remove it from the display for some reason...
+                                    ChatListActivity.this.finish();
+                                }
+                            });
+                            adb.setNegativeButton("No",null);
+                            adb.show();
+                            return true;
                         }
                     });
                 }

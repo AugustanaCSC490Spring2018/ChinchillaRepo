@@ -42,7 +42,9 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
 
     public void createList() {
         final ArrayList<String> blockedUsers = new ArrayList<>();
-
+        if (setOfBlockedUsers == null){
+            return;
+        }
         for (String blockedUser : setOfBlockedUsers) {
             // fill the blocked users list
             blockedUsers.add(blockedUser);

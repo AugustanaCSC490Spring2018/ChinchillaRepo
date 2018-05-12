@@ -192,11 +192,14 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflate the menu;
-        // this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        // TODO: Adapt for logout option being visible appropriately...
+        // DON'T INCLUDE MENU IF USER IS NOT LOGGED IN
+        if(!(this instanceof LoginActivity || this instanceof CreateAccountActivity || this instanceof VerifyAccountActivity)) {
+            //Inflate the menu;
+            // this adds items to the action bar if it is present.
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+            // TODO: Adapt for logout option being visible appropriately...
+        }
         return true;
     }
 

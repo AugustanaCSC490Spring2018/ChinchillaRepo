@@ -129,6 +129,18 @@
             android:label="@string/app_name"
             ></activity>
 
+        <!--ACCOUNT SETTINGS ACTIVITY-->
+        <activity android:name=".AccountSettingsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            ></activity>
+
+        <!--DISPLAY SETTINGS ACTIVITY-->
+        <activity android:name=".DisplaySettingsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            ></activity>
+
     </application>
 
 </manifest>

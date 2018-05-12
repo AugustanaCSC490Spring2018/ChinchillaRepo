@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,7 +84,7 @@ public class ChatActivity extends ChinchillaChatActivity {
                 databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_SHORT);
+                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_LONG);
                     }
                 });
             }
