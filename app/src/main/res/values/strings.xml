@@ -57,9 +57,19 @@
 
     <!-- Strings for the Settings activity -->
     <string name="settings_title">Settings</string>
-    <string name="change_username">Change Username</string>
-    <string name="change_password">Change Password</string>
+    <string name="action_account_settings">Account Settings</string>
+    <string name="action_display_settings">Display</string>
     <string name="action_confirm_settings">Confirm Settings</string>
+
+    <!-- Strings for Account Settings Activity -->
+    <string name="account_settings_title">Account Settings</string>
+    <string name="change_username">Change Username:</string>
+    <string name="change_password">Change Password:</string>
+    <string name="confirm_change_password">Please confirm your new password:</string>
+
+    <!-- Strings for Display Settings Activity -->
+    <string name="display_settings_title">Display Settings</string>
+    <string name="theme_chooser">Choose a theme:</string>
 
     <!-- Strings for the About Activity (including credits)-->
     <string name="credits_title">Credits</string>

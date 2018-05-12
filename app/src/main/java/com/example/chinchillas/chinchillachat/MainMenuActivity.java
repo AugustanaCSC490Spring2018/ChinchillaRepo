@@ -32,7 +32,8 @@ public class MainMenuActivity extends ChinchillaChatActivity {
         findAFriendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainMenuActivity.this, PreferencesActivity.class));
+                //startActivity(new Intent(MainMenuActivity.this, PreferencesActivity.class));
+                displayComingSoonMessage();
             }
         });
 

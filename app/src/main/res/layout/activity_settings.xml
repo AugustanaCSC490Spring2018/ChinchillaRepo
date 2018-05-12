@@ -11,34 +11,38 @@
         android:textSize="@dimen/title_size"
         android:text="@string/settings_title"/>
 
-    <TextView
-        android:id="@+id/changePasswordTV"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/accountSettingsBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@id/changeUsernameTV"
-        android:textSize="@dimen/instructions_size"
-        android:text="@string/change_password"/>
-
-    <TextView
-        android:id="@+id/changeUsernameTV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/settingsTV"
-        android:textSize="@dimen/instructions_size"
-        android:text="@string/change_username"/>
+        android:textAllCaps="false"
+        android:textSize="@dimen/button_text_size"
+        android:text="@string/action_account_settings"
+        />
 
-        <Button
-            android:id="@+id/confirm_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:textAllCaps="false"
-            android:textSize="@dimen/button_text_size"
-            android:text="@string/action_confirm_settings" />
+    <Button
+        android:id="@+id/displaySettingsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/accountSettingsBtn"
+        android:textAllCaps="false"
+        android:textSize="@dimen/button_text_size"
+        android:text="@string/action_display_settings"
+        />
+
+    <Button
+        android:id="@+id/confirm_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:textAllCaps="false"
+        android:textSize="@dimen/button_text_size"
+        android:text="@string/action_confirm_settings" />
 </RelativeLayout>

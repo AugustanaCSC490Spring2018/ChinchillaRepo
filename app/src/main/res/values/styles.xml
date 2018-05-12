@@ -17,5 +17,12 @@
         <!--<item name="android:windowBackground">@color/colorBGNight</item>-->
     </style>
 
+    <!-- Theme 3 -->
+    <style name="CoolTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimaryCool</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryCoolDark</item>
+        <item name="colorAccent">@color/colorAccentCool</item>
+    </style>
+
 
 </resources>
