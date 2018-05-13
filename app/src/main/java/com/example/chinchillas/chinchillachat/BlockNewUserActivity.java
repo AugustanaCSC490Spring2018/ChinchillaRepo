@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Allows the user to block another user.
+ */
 public class BlockNewUserActivity extends ChinchillaChatActivity {
 
     private EditText usernameET;
@@ -28,6 +31,13 @@ public class BlockNewUserActivity extends ChinchillaChatActivity {
         });
     }
 
+    /**
+     * Adds the other user to be blocked to this user's block list. We designed blocking in a
+     * redundant way to make it easier to reference, so we also add this user to the list of users
+     * who are blocking the other user.
+     *
+     * @return true if the user is blocked successfully, false otherwise
+     */
     private boolean blockUser() {
         String usernameToBlock = usernameET.getText().toString().toUpperCase();
         if(userPrefs.contains(usernameToBlock)){

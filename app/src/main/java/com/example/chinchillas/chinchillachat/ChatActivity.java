@@ -1,13 +1,5 @@
 package com.example.chinchillas.chinchillachat;
 
-/**
- * Created by Angelica Garcia on 4/23/2018.
- */
-
-/**
- * Source: https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,6 +24,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * ChatActivity displays a chat for the user. Messages can be added to a chat by this user or by
+ * other users in the chat, and the data should be shown upon re-entering the chat.
+ *
+ * Source: https://www.codeproject.com/Tips/897826/Designing-Android-Chat-Bubble-Chat-UI
+ */
 
 public class ChatActivity extends ChinchillaChatActivity {
 
@@ -62,12 +60,17 @@ public class ChatActivity extends ChinchillaChatActivity {
         initControls();
     }
 
+    /**
+     * Initialize controls
+     */
     private void initControls() {
         messagesContainer = (ListView) findViewById(R.id.messages_container);
         messageET = (EditText) findViewById(R.id.messageEdit);
         sendBtn = (Button) findViewById(R.id.chatSendButton);
         RelativeLayout container = (RelativeLayout) findViewById(R.id.container);
         chatLog = new ArrayList<Message>();
+
+        // IF CHAT DOES NOT EXIST YET, CREATE A NEW CHAT BASED ON THE MEMBERS TO BE INCLUDED
         if(chatThreadID == null) {
             ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
             chatMembersList.add(myUsername);
@@ -77,7 +80,6 @@ public class ChatActivity extends ChinchillaChatActivity {
             chatMap.put("members", chatMembersList);
             chatMap.put("messages", chatLog);
             chatThreadReference.setValue(chatMap);
-//            databaseReference.child("usernames").child(myUsername).child("myChats").child(chatThreadID).setValue(friendUsernames);
             for(String name : chatMembersList){ // add list of other chat members
                 ArrayList<String> otherChatMembersList = (ArrayList<String>) chatMembersList.clone();
                 otherChatMembersList.remove(name);
@@ -88,12 +90,12 @@ public class ChatActivity extends ChinchillaChatActivity {
                     }
                 });
             }
-        } else {
+        } else { // Chat exists. Reference it.
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
-
         }
         chatThreadMessagesReference = chatThreadReference.child("messages");
 
+        // UPDATE CHAT THREAD TO REFLECT DATABASE RECORD
         chatThreadMessagesReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -124,11 +126,13 @@ public class ChatActivity extends ChinchillaChatActivity {
             }
         });
 
+        // ADAPTER TO DISPLAY MESSAGES APPROPRIATELY
         adapter = new ChatAdapter(ChatActivity.this, chatLog, usernameForMe, friendUsernames);
         messagesContainer.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         scroll();
 
+        // SEND NEW MESSAGE
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,12 +154,20 @@ public class ChatActivity extends ChinchillaChatActivity {
 
     }
 
+    /**
+     * Display message.
+     *
+     * @param message
+     */
     public void displayMessage(Message message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
     }
 
+    /**
+     * Scroll.
+     */
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }

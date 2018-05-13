@@ -13,10 +13,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 /**
- * Created by angelicagarcia16 on 4/16/2018.
- */
-
-/**
+ * This method allows a user to view the users they have blocked, as well as unblock users.
+ *
  * Sources: https://stackoverflow.com/questions/12470507/how-to-show-alert-dialog-when-click-on-listview
  *
  */
@@ -40,8 +38,13 @@ public class BlockedUsersActivity extends ChinchillaChatActivity {
         createList();
     }
 
+    /**
+     * Creates list of users that are blocked by this user and displays them, allowing that user
+     * to remove those users from their blocked list.
+     */
     public void createList() {
         final ArrayList<String> blockedUsers = new ArrayList<>();
+        // note setOfBlockedUsers comes from ChinchillaChatActivity
         if (setOfBlockedUsers == null){
             return;
         }

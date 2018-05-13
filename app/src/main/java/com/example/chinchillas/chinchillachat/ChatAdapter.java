@@ -18,7 +18,7 @@ import com.example.chinchillas.chinchillachat.datamodel.Message;
 import java.util.List;
 
 /**
- * Created by Angelica Garcia on 4/23/2018.
+ * ChatAdapter allows us to display chat messages appropriately.
  *
  * Sources: https://stackoverflow.com/questions/11773369/convert-from-long-to-date-format?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
  * for Date format
@@ -29,10 +29,19 @@ import java.util.List;
 public class ChatAdapter extends BaseAdapter {
 
     private final List<Message> chatMessages;
-    private final List<String> friendUsernames;
+    private final List<String> friendUsernames; // usernames of other parties in chat
     private Activity context;
     private String usernameForMe;
 
+    /**
+     * Constructor. chatMessages should never contain messages with users who are not usernameForMe
+     * or in friendUsernames.
+     *
+     * @param context
+     * @param chatMessages list of messages
+     * @param usernameForMe my username
+     * @param friendUsernames list of usernames of other parties in the chat
+     */
     public ChatAdapter(Activity context, List<Message> chatMessages, String usernameForMe, List<String> friendUsernames) {
         this.context = context;
         this.chatMessages = chatMessages;
@@ -40,6 +49,9 @@ public class ChatAdapter extends BaseAdapter {
         this.friendUsernames = friendUsernames;
     }
 
+    /**
+     * @return number of messages
+     */
     @Override
     public int getCount() {
         if (chatMessages != null) {
@@ -49,6 +61,10 @@ public class ChatAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * @param position
+     * @return message at position
+     */
     @Override
     public Message getItem(int position) {
         if (chatMessages != null) {
@@ -87,14 +103,33 @@ public class ChatAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * Add message to list.
+     *
+     * @param message
+     */
     public void add(Message message) {
         chatMessages.add(message);
     }
 
+    /**
+     * Add all messages from parameter to list.
+     *
+     * @param messages
+     */
     public void add(List<Message> messages) {
         chatMessages.addAll(messages);
     }
 
+    /**
+     * Set alignment and color appropriately based on sender.
+     *
+     * If sender is this user, the message should be on the right.
+     * If sender is not this user, the message should be on the left.
+     *
+     * @param holder
+     * @param sender
+     */
     private void setAlignment(ViewHolder holder, String sender) {
         if (!sender.equals(usernameForMe)) {
             int friendNumber = friendUsernames.indexOf(sender);
@@ -155,6 +190,12 @@ public class ChatAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * Creates view holder.
+     *
+     * @param v
+     * @return holder
+     */
     private ViewHolder createViewHolder(View v) {
         ViewHolder holder = new ViewHolder();
         holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
@@ -165,6 +206,9 @@ public class ChatAdapter extends BaseAdapter {
         return holder;
     }
 
+    /**
+     * Contains important information for displaying messages.
+     */
     private static class ViewHolder {
         public TextView txtMessage;
         public TextView txtInfo;

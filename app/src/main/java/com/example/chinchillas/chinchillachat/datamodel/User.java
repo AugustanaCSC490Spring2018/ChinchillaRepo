@@ -4,25 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ivyvecna15 on 4/13/2018.
+ * User represents a user of the app. Users have usernames and email
+ * addresses that they use to sign up.
+ *
+ * Initially, we had planned to use Pseudousers which would obscure
+ * some of the details of users. Ultimately we decided we were making
+ * our data model convoluted for no real gain. The Pseudouser class
+ * has been deleted.
  */
 
 public class User {
     private String username;
     private String email;
-//    private Pseudouser pseudouser;
 
+    /**
+     * Constructs a User.
+     *
+     * @param username
+     * @param email
+     */
     public User(String username, String email) {
         this.username = username;
         this.email = email;
-//        this.pseudouser = new Pseudouser(pseudoUsername);
     }
 
+    /**
+     * Creates a map for JSON objectification.
+     *
+     * @return map representation of this object
+     */
     public Map<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("username", username);
         map.put("email", email);
-//        map.put("pseudouser", pseudouser.toMap());
         return map;
     }
 }

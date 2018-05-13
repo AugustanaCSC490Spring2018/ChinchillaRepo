@@ -15,7 +15,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by angelicagarcia16 on 4/9/2018.
+ * Allows the user to create an account. Accounts must have an @augustana.edu email address and must
+ * have a strong enough password and an unused username.
  */
 
 public class CreateAccountActivity extends ChinchillaChatActivity {
@@ -61,8 +62,11 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         });
     }
 
-
-
+    /**
+     * Attempt to register user. This method checks if all of the criteria for registration are
+     * satisfied, and then it registers the user. After a user is registered, they must verify their
+     * account.
+     */
     public void registerUser() {
         String user = usernameET.getText().toString();
         String pass = passwordET.getText().toString();
@@ -90,34 +94,12 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
             sb.append("Passwords must match.\n");
         }
 
-        if(sb.length() > 0){
+        if(sb.length() > 0){ // some piece of data is invalid
             Toast.makeText(this, sb.toString(), Toast.LENGTH_LONG).show();
         } else {
             // Showing progress dialog at user registration time.
             Toast.makeText(this, "Registering. Please Wait.", Toast.LENGTH_LONG).show();
             final String username = usernameET.getText().toString();
-//            final String pseudonym = usernameET.getText().toString(); // TODO: Change this.
-//            databaseReference.child("usernameList").child(myUsername).setValue(true).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(CreateAccountActivity.this, "Username already in use.", Toast.LENGTH_LONG).show();
-//                    failedToCreateAccount = true;
-//                }
-//            });
-//            databaseReference.child("pseudonymList").child(pseudonym).setValue(true).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(CreateAccountActivity.this, "Pseudonym already in use.", Toast.LENGTH_LONG).show();
-//                    failedToCreateAccount = true;
-//                }
-//            });
-//            databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(true).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(CreateAccountActivity.this, "E-mail already in use.", Toast.LENGTH_LONG).show();
-//                    failedToCreateAccount = true;
-//                }
-//            });
 
             if(failedToCreateAccount){
                 failedToCreateAccount = false;
@@ -134,10 +116,8 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
 
                         // usernameList is a map of usernames in all caps to usernames as input by users.
                         databaseReference.child("usernameList").child(username.toUpperCase()).setValue(username);
-//                        databaseReference.child("pseudonymList").child(pseudonym).setValue(userID);
                         databaseReference.child("emailList").child(mail.substring(0,mail.indexOf("@"))).setValue(userID);
                         editor.putString("myUsername", username);
-//                        editor.putString("myPseudonym", pseudonym);
                         verifyUser();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -150,6 +130,9 @@ public class CreateAccountActivity extends ChinchillaChatActivity {
         }
     }
 
+    /**
+     * Force user to verify account before they may use the app.
+     */
     public void verifyUser() {
         Intent intent = new Intent(getApplicationContext(), VerifyAccountActivity.class);
         startActivity(intent);

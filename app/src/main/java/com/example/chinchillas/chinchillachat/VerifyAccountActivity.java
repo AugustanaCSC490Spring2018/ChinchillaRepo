@@ -10,7 +10,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
- * Created by ivyvecna15 on 4/15/2018.
+ * Forces user to verify their account.
  */
 
 public class VerifyAccountActivity extends ChinchillaChatActivity {
@@ -39,6 +39,7 @@ public class VerifyAccountActivity extends ChinchillaChatActivity {
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // for some reason, user always has to click twice, even after reload...
                 firebaseAuth.getCurrentUser().reload();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user.isEmailVerified()) {

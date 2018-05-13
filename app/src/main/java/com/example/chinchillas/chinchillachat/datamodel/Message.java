@@ -11,7 +11,11 @@ import java.util.TimeZone;
 import java.util.Timer;
 
 /**
- * Created by ivyvecna15 on 4/13/2018.
+ * Messages store the message data of a chat.
+ * A message contains a String with the actual data,
+ * a String indicating the username of the person who
+ * sent the message, and a long indicating the time
+ * the message was sent (as determined by GregorianCalendar).
  */
 
 public class Message implements Comparable<Message> {
@@ -19,6 +23,10 @@ public class Message implements Comparable<Message> {
     public String senderID; // actually sender username
     public long time;
 
+    /**
+     * Empty constructor. Creates a message with no sender and
+     * no text.
+     */
     public Message() {
         message = "";
         senderID = "";
@@ -27,7 +35,7 @@ public class Message implements Comparable<Message> {
 
     /**
      * @param message the message
-     * @param senderID
+     * @param senderID sender username
      */
     public Message(String message, String senderID) {
         this.message = message;
@@ -35,6 +43,14 @@ public class Message implements Comparable<Message> {
         time = GregorianCalendar.getInstance().getTimeInMillis();
     }
 
+    /**
+     * One message comes before another if the message was sent at an
+     * earlier time. To avoid collision, we will always assume two messages
+     * were sent at different times.
+     *
+     * @param other
+     * @return -1 if this message came earlier; 1 otherwise
+     */
     public int compareTo(Message other){
         if(time < other.time) {
             return -1;
@@ -43,6 +59,11 @@ public class Message implements Comparable<Message> {
         }
     }
 
+    /**
+     * Creates a map for JSON objectification.
+     *
+     * @return map representation of this object
+     */
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put("message", message);
@@ -51,19 +72,32 @@ public class Message implements Comparable<Message> {
         return map;
     }
 
+    /**
+     * @return message text
+     */
     public String getMessage() {
         return message;
     }
 
+    /**
+     * @return message sender username
+     */
     public String getSenderID() {
         return senderID;
     }
 
+    /**
+     * @return time message was sent
+     */
     public long getTime() {
-
         return time;
     }
 
+    /**
+     * Sets the time to parameter.
+     *
+     * @param time
+     */
     public void setTime(long time) {
         this.time = time;
     }

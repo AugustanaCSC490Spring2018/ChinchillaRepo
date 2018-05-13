@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by angelicagarcia16 on 3/28/2018.
+ * Main menu.
  */
 
 public class MainMenuActivity extends ChinchillaChatActivity {

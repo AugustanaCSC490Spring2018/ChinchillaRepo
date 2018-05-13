@@ -3,7 +3,7 @@ package com.example.chinchillas.chinchillachat;
 import android.support.annotation.NonNull;
 
 /**
- * Created by ivyvecna15 on 4/9/2018.
+ * Contains tools for determining the strength of a password.
  */
 
 public class PasswordAnalysis {
@@ -17,7 +17,11 @@ public class PasswordAnalysis {
     public static final long NUM_SECONDS_PER_CENTURY = NUM_SECONDS_PER_DECADE * 10;
     public static final long NUM_SECONDS_PER_MILLENNIUM = NUM_SECONDS_PER_CENTURY * 10;
 
-
+    /**
+     * Used for testing.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         String pass1 = "test";
         String pass2 = "This should 12 be a STRONG password.";

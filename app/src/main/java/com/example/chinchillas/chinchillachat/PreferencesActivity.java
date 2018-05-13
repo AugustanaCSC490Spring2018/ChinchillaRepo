@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 
 /**
- * Created by angelicagarcia16 on 4/3/2018.
+ * This class allows the user to specify the type of person and tags to search for to chat with.
+ *
+ * features modifications from: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
+ * and from: https://developer.android.com/guide/topics/ui/controls/spinner.html#SelectListener
  */
-
-// features modifications from: https://stackoverflow.com/questions/13377361/how-to-create-a-drop-down-list
-// and from: https://developer.android.com/guide/topics/ui/controls/spinner.html#SelectListener
 
 public class PreferencesActivity extends ChinchillaChatActivity {
 

@@ -34,21 +34,19 @@ import java.util.Set;
 
 public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
-    // used for theme, login
+    // general preferences
     protected SecurePreferences pref;
+    protected SharedPreferences.Editor editor;
 
     // map of usernames in all caps to usernames as input by user
     protected SharedPreferences userPrefs;
     protected SharedPreferences.Editor userPrefsEditor;
 
-    protected SharedPreferences.Editor editor;
-
+    // Firebase database reference
     protected DatabaseReference databaseReference;
 
+    // my username, frequently referenced
     protected String myUsername;
-
-//     map of usernames in all caps to usernames as input by user - same as userPrefs
-//    protected Map<String, String> mapOfAllUsernames;
 
     protected Set<String> setOfBlockedUsers;
 
@@ -69,7 +67,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 //     See the License for the specific language governing permissions and
 //     limitations under the License.
 
-
+    // TODO: change to int to allow multiple themes
     protected boolean nightMode;
 
     @Override
@@ -87,14 +85,17 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                 finish();
             }
         }
+
         super.onCreate(savedInstanceState);
         pref = new SecurePreferences(getApplicationContext());
         editor = pref.edit();
         userPrefs = getApplicationContext().getSharedPreferences("userPrefs", MODE_PRIVATE);
         userPrefsEditor = userPrefs.edit();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-//        mapOfAllUsernames = pref.get("mapOfAllUsernames", new HashSet<String>());
+
+        // CREATE LIST (MAP) OF ALL USERNAMES
         databaseReference.child("usernameList").addChildEventListener(new ChildEventListener() {
+
             // usernames should appear in usernameList in the form:
             // key: USERNAME (in all caps)
             // value: username (as spelled by user)
@@ -103,7 +104,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 userPrefsEditor.putString(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
                 userPrefsEditor.commit();
-//                mapOfAllUsernames.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
             }
 
             @Override
@@ -115,9 +115,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 userPrefsEditor.remove(dataSnapshot.getKey());
                 userPrefsEditor.commit();
-//                mapOfAllUsernames.remove(dataSnapshot.getKey());
-//                editor.putStringSet("mapOfAllUsernames", mapOfAllUsernames);
-//                editor.commit();
             }
 
             @Override
@@ -130,15 +127,20 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 
             }
         });
+
+        // SET NIGHT MODE APPROPRIATELY. TODO: CHANGE TO ANY THEME
         nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
         if (nightMode) {
             setTheme(R.style.NightTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
+
+        // IF SIGNED IN, GET USERNAME
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             myUsername = pref.getString("myUsername", null);
             if (myUsername == null) {
+                // GET USER DATA
                 databaseReference.child("users").child(FirebaseAuth.getInstance().getUid()).child("username").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,6 +157,8 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                 });
             }
             setOfBlockedUsers = pref.getStringSet("setOfBlockedUsers", new HashSet<String>());
+
+            // CHECK FOR NON-NULL BECAUSE FIREBASE IS ASYNCHRONOUS
             if(myUsername != null) {
                 databaseReference.child("blockedUsers").child("blocking").child(myUsername).addChildEventListener(new ChildEventListener() {
                     @Override
@@ -190,6 +194,12 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Set up menu.
+     *
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // DON'T INCLUDE MENU IF USER IS NOT LOGGED IN
@@ -203,6 +213,12 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Set up menu.
+     *
+     * @param item
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -211,8 +227,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_logout:
-                // TODO: Add sassy message if they try to click while logged out.
-//                editor.remove("userid");
                 editor.clear();
                 editor.commit();
                 editor.putBoolean("nightmode", nightMode); // TODO: Fix this. It doesn't work for some reason.
@@ -243,6 +257,10 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sometimes we're behind on getting things working. This method is a default for buttons so
+     * they can be there and be safely pressed without breaking.
+     */
     public void displayComingSoonMessage(){
         Toast.makeText(ChinchillaChatActivity.this, "Sorry, this feature is still in development!", Toast.LENGTH_SHORT).show();
     }

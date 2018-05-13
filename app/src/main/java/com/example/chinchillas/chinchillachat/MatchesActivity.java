@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by angelicagarcia16 on 4/9/2018.
+ * Allows the user to see "matches" - other users that are interested in the same things.
+ * The user may wish to talk to those people.
  */
 
 public class MatchesActivity extends ChinchillaChatActivity {

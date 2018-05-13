@@ -13,6 +13,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+/**
+ * Allows the user to create a new chat by specifying usernames to chat with.
+ */
+
 public class NewChatActivity extends ChinchillaChatActivity {
 
     FirebaseAuth firebaseAuth;
@@ -53,6 +57,12 @@ public class NewChatActivity extends ChinchillaChatActivity {
 
     }
 
+    /**
+     * Determine usernames to chat with from a single string including usernames offset by commas.
+     *
+     * @param usernames a string of usernames offset by commas
+     * @return an arraylist of those usernames
+     */
     public ArrayList<String> getUsernamesListFromUsernamesString(String usernames) {
         ArrayList<String> usernamesList = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
