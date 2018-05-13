@@ -69,7 +69,6 @@ public class MainMenuActivity extends ChinchillaChatActivity {
                 ArrayList<String> friendUsernames = new ArrayList<String>();
                 friendUsernames.add(chatFriend);
                 intent.putExtra("friendUsernames", friendUsernames);
-                Toast.makeText(MainMenuActivity.this, "Now chatting with " + chatFriend + ". Say hello!", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });

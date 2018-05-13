@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ChatActivity displays a chat for the user. Messages can be added to a chat by this user or by
@@ -77,7 +78,14 @@ public class ChatActivity extends ChinchillaChatActivity {
             chatThreadReference = databaseReference.child("chats").push();
             chatThreadID = chatThreadReference.getKey();
             HashMap<String, Object> chatMap = new HashMap<>(); // include list of chat members and list of chat messages
-            chatMap.put("members", chatMembersList);
+
+            // DO THIS TO MAKE FIREBASE RULES EASIER
+            Map<String, Boolean> chatMembersMap = new HashMap<>();
+            for (String member : chatMembersList) {
+                chatMembersMap.put(member, true);
+            }
+            chatMap.put("members", chatMembersMap);
+
             chatMap.put("messages", chatLog);
             chatThreadReference.setValue(chatMap);
             for(String name : chatMembersList){ // add list of other chat members
@@ -92,6 +100,8 @@ public class ChatActivity extends ChinchillaChatActivity {
                     }
                 });
             }
+
+            Toast.makeText(ChatActivity.this, "Now chatting with " + friendsString() + ". Say hello!", Toast.LENGTH_SHORT).show();
         } else { // Chat exists. Reference it.
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
         }
@@ -153,6 +163,16 @@ public class ChatActivity extends ChinchillaChatActivity {
             }
         });
 
+        getSupportActionBar().setTitle(friendsString());
+
+    }
+
+    /**
+     * Organizes list of friends' usernames into a single string.
+     *
+     * @return single string of usernames, offset by commas
+     */
+    public String friendsString() {
         StringBuilder sb = new StringBuilder();
         for(String name : friendUsernames){
             sb.append(name + ", ");
@@ -161,8 +181,7 @@ public class ChatActivity extends ChinchillaChatActivity {
             // remove last ", "
             sb.delete(sb.length() - 2, sb.length());
         }
-        getSupportActionBar().setTitle(sb.toString());
-
+        return sb.toString();
     }
 
     @Override
@@ -199,7 +218,7 @@ public class ChatActivity extends ChinchillaChatActivity {
             // remove chat from each member's list of chats
             databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).removeValue();
         }
-        // delete the chat
+        // delete the chat itself
         databaseReference.child("chats").child(chatThreadID).removeValue();
     }
 
