@@ -153,7 +153,21 @@ public class ChatActivity extends ChinchillaChatActivity {
             }
         });
 
+        StringBuilder sb = new StringBuilder();
+        for(String name : friendUsernames){
+            sb.append(name + ", ");
+        }
+        if(sb.length() > 2) {
+            // remove last ", "
+            sb.delete(sb.length() - 2, sb.length());
+        }
+        getSupportActionBar().setTitle(sb.toString());
 
+    }
+
+    @Override
+    public void finish(){
+        super.finish();
     }
 
     /**
