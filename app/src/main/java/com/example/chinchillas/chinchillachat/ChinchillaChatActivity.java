@@ -129,7 +129,12 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         });
 
         // SET THEME APPROPRIATELY.
-        theme = pref.getInt("theme",0);
+        String themeString = pref.getString("theme",null);
+        if(themeString == null) {
+            theme = 0;
+        } else {
+            theme = Integer.parseInt(themeString);
+        }
         if (theme == 1) {
             setTheme(R.style.CoolTheme);
         } else if (theme == 2){
@@ -229,9 +234,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_logout:
                 editor.clear();
-                editor.commit();
-                editor.putInt("theme", theme); // TODO: Fix this. It doesn't work for some reason.
-                // TODO: Add necessary other settings to store even upon logout...
                 editor.commit();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
