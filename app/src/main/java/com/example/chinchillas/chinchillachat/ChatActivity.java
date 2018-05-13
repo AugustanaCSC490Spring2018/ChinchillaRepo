@@ -72,7 +72,7 @@ public class ChatActivity extends ChinchillaChatActivity {
 
         // IF CHAT DOES NOT EXIST YET, CREATE A NEW CHAT BASED ON THE MEMBERS TO BE INCLUDED
         if(chatThreadID == null) {
-            ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
+            final ArrayList<String> chatMembersList = new ArrayList<>(friendUsernames);
             chatMembersList.add(myUsername);
             chatThreadReference = databaseReference.child("chats").push();
             chatThreadID = chatThreadReference.getKey();
@@ -86,7 +86,9 @@ public class ChatActivity extends ChinchillaChatActivity {
                 databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_LONG);
+                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_LONG).show();
+                        failedToCreateChat(chatMembersList);
+                        ChatActivity.this.finish();
                     }
                 });
             }
@@ -172,5 +174,19 @@ public class ChatActivity extends ChinchillaChatActivity {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
+    /**
+     * To be called when user began a chat then found out they couldn't chat with at least one
+     * member. This should undo the creation of the chat.
+     *
+     * @param chatMembersList
+     */
+    private void failedToCreateChat(List<String> chatMembersList){
+        for(String name : chatMembersList){
+            // remove chat from each member's list of chats
+            databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).removeValue();
+        }
+        // delete the chat
+        databaseReference.child("chats").child(chatThreadID).removeValue();
+    }
 
 }

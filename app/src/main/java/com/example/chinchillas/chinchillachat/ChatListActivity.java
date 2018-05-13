@@ -42,6 +42,8 @@ public class ChatListActivity extends ChinchillaChatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), NewChatActivity.class));
+                // should not be necessary, but we want the list to update upon leaving a chat
+                ChatListActivity.this.finish();
             }
         });
 

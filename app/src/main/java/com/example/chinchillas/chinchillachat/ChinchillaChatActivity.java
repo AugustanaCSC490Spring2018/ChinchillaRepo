@@ -195,7 +195,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
     }
 
     /**
-     * Set up menu.
+     * Set up menu. Do not include hamburger menu if user is not logged in and verified.
      *
      * @param menu
      * @return true
@@ -208,7 +208,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             // this adds items to the action bar if it is present.
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu, menu);
-            // TODO: Adapt for logout option being visible appropriately...
         }
         return true;
     }
