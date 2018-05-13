@@ -5,7 +5,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/activity_vertical_margin">
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:id="@+id/scrollView2">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,9 +25,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_below="@id/settingsTV"
+                android:layout_below="@id/accountSettingsTV"
                 android:textSize="@dimen/instructions_size"
                 android:text="@string/change_username"/>
+
+            <EditText
+                android:id="@+id/changeUsernameET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/changeUsernameTV"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:inputType="textPersonName"
+                android:textSize="@dimen/instructions_size"/>
 
             <TextView
                 android:id="@+id/changePasswordTV"
@@ -34,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_below="@id/changeUsernameTV"
+                android:layout_below="@id/changeUsernameET"
                 android:textSize="@dimen/instructions_size"
                 android:text="@string/change_password"/>
 
@@ -45,6 +57,7 @@
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_below="@id/changePasswordTV"
+                android:inputType="textPassword"
                 android:textSize="@dimen/instructions_size"/>
 
             <TextView
@@ -64,18 +77,19 @@
                 android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_below="@id/confirmChangePasswordTV"
+                android:inputType="textPassword"
                 android:textSize="@dimen/instructions_size"/>
 
-            <Button
-                android:id="@+id/confirmSettingsBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:textAllCaps="false"
-                android:textSize="@dimen/button_text_size"
-                android:text="@string/action_confirm_settings" />
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/confirmSettingsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView2"
+        android:layout_centerHorizontal="true"
+        android:text="@string/action_confirm_settings"
+        android:textAllCaps="false"
+        android:textSize="@dimen/button_text_size" />
 </RelativeLayout>

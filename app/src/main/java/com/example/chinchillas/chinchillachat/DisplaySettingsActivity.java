@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class DisplaySettingsActivity extends ChinchillaChatActivity {
 
-    private Button confirmBtn;
+//    private Button confirmBtn;
     private Spinner themeSpinner;
     private int themeSelection;
 
@@ -25,10 +25,10 @@ public class DisplaySettingsActivity extends ChinchillaChatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_settings);
 
-        confirmBtn = findViewById(R.id.confirmSettingsBtn);
+//        confirmBtn = findViewById(R.id.confirmSettingsBtn);
         themeSpinner = findViewById(R.id.themeSpinner);
 
-        String[] themeNames = new String[]{getString(R.string.default_theme), getString(R.string.cool_theme), getString(R.string.night_theme)};
+        String[] themeNames = new String[]{getString(R.string.default_theme_name_selection), getString(R.string.default_theme), getString(R.string.cool_theme), getString(R.string.night_theme)};
         themeSelection = THEME_DEFAULT;
 
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -48,12 +48,20 @@ public class DisplaySettingsActivity extends ChinchillaChatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItemText = (String) parent.getItemAtPosition(position);
-                if (selectedItemText.equals(getString(R.string.cool_theme))){
-                    themeSelection = THEME_COOL;
-                } else if (selectedItemText.equals(getString(R.string.night_theme))){
-                    themeSelection = THEME_NIGHT;
-                } else {
-                    themeSelection = THEME_DEFAULT;
+                if (!selectedItemText.equals(getString(R.string.default_theme_name_selection))) {
+
+                    if (selectedItemText.equals(getString(R.string.cool_theme))) {
+                        themeSelection = THEME_COOL;
+                    } else if (selectedItemText.equals(getString(R.string.night_theme))) {
+                        themeSelection = THEME_NIGHT;
+                    } else {
+                        themeSelection = THEME_DEFAULT;
+                    }
+
+                    theme = themeSelection;
+                    editor.putInt("theme", themeSelection);
+                    editor.commit();
+                    Toast.makeText(DisplaySettingsActivity.this, getString(R.string.restart_to_change_theme), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -63,14 +71,11 @@ public class DisplaySettingsActivity extends ChinchillaChatActivity {
             }
         });
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                theme = themeSelection;
-                editor.putInt("theme", themeSelection);
-                editor.commit();
-                Toast.makeText(DisplaySettingsActivity.this, getString(R.string.restart_to_change_theme), Toast.LENGTH_LONG).show();
-            }
-        });
+//        confirmBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }
