@@ -1,6 +1,5 @@
 package com.example.chinchillas.chinchillachat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.securepreferences.SecurePreferences;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -67,8 +65,10 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
 //     See the License for the specific language governing permissions and
 //     limitations under the License.
 
-    // TODO: change to int to allow multiple themes
-    protected boolean nightMode;
+    protected int theme;
+    public static final int THEME_DEFAULT = 0;
+    public static final int THEME_COOL = 1;
+    public static final int THEME_NIGHT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,9 +128,11 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             }
         });
 
-        // SET NIGHT MODE APPROPRIATELY. TODO: CHANGE TO ANY THEME
-        nightMode = Boolean.parseBoolean(pref.getString("nightmode", null));
-        if (nightMode) {
+        // SET THEME APPROPRIATELY.
+        theme = pref.getInt("theme",0);
+        if (theme == 1) {
+            setTheme(R.style.CoolTheme);
+        } else if (theme == 2){
             setTheme(R.style.NightTheme);
         } else {
             setTheme(R.style.AppTheme);
@@ -228,7 +230,7 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
             case R.id.action_logout:
                 editor.clear();
                 editor.commit();
-                editor.putBoolean("nightmode", nightMode); // TODO: Fix this. It doesn't work for some reason.
+                editor.putInt("theme", theme); // TODO: Fix this. It doesn't work for some reason.
                 // TODO: Add necessary other settings to store even upon logout...
                 editor.commit();
                 FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -244,12 +246,6 @@ public abstract class ChinchillaChatActivity extends AppCompatActivity {
                 return true;
             case R.id.action_about:
                 startActivity(new Intent(getApplicationContext(), AboutActivity.class));
-                return true;
-            case R.id.action_nightmode:
-                nightMode = !nightMode;
-                editor.putBoolean("nightmode", nightMode);
-                editor.commit();
-                Toast.makeText(this, "Please restart app to " + (nightMode ? "enable" : "disable") + " night mode.", Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

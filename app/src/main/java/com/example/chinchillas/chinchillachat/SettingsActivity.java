@@ -21,7 +21,7 @@ public class SettingsActivity extends ChinchillaChatActivity {
     //private CheckBoxPreference checkBoxPreference;
     private Button accountSettingsBtn;
     private Button displayBtn;
-    private Button confirmBtn;
+//    private Button confirmBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class SettingsActivity extends ChinchillaChatActivity {
 
         accountSettingsBtn = findViewById(R.id.accountSettingsBtn);
         displayBtn = findViewById(R.id.displaySettingsBtn);
-        confirmBtn = findViewById(R.id.confirm_settings);
+//        confirmBtn = findViewById(R.id.confirm_settings);
 
         accountSettingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,12 +61,12 @@ public class SettingsActivity extends ChinchillaChatActivity {
             }
         });
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: Implement
-                displayComingSoonMessage();
-            }
-        });
+//        confirmBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO: Implement
+//                displayComingSoonMessage();
+//            }
+//        });
     }
 }

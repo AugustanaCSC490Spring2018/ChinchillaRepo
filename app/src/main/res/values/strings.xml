@@ -84,4 +84,10 @@
     <string name="ui_menu_nightmode">Night mode</string>
     <string name="ui_menu_about">About</string>
     <string name="ui_menu_logout">Log out</string>
+
+    <!-- theme names -->
+    <string name="default_theme">Default Theme</string>
+    <string name="cool_theme">Cool Theme</string>
+    <string name="night_theme">Night Theme</string>
+    <string name="restart_to_change_theme">Please restart app to finalize theme change.</string>
 </resources>

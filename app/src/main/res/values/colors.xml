@@ -14,7 +14,7 @@
     <!-- Cool theme-->
     <color name="colorPrimaryCool">#CDE6FF</color>
     <color name="colorPrimaryCoolDark">#A4B8CC</color>
-    <color name="colorAccentCool">#FFEDDC</color>
+    <color name="colorAccentCool">#AAEDF7</color>
     <color name="colorBGCool">#EBF5FF</color>
 
     <color name="white">#FFFFFF</color>

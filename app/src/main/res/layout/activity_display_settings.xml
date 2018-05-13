@@ -22,6 +22,15 @@
         android:textSize="@dimen/title_size"
         android:text="@string/theme_chooser" />
 
+    <Spinner
+        android:id="@+id/themeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/themeTitleTV"
+        android:layout_marginTop="20dp" />
+
+
     <Button
         android:id="@+id/confirmSettingsBtn"
         android:layout_width="wrap_content"

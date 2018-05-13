@@ -11,10 +11,10 @@
         android:id="@+id/action_blockedusers"
         android:title="@string/ui_menu_blocked_users"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_nightmode"
-        android:title="@string/ui_menu_nightmode"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_nightmode"-->
+        <!--android:title="@string/ui_menu_nightmode"-->
+        <!--app:showAsAction="never" />-->
     <item
         android:id="@+id/action_about"
         android:title="@string/ui_menu_about"

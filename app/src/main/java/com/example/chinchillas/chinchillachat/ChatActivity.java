@@ -101,7 +101,6 @@ public class ChatActivity extends ChinchillaChatActivity {
                 });
             }
 
-            Toast.makeText(ChatActivity.this, "Now chatting with " + friendsString() + ". Say hello!", Toast.LENGTH_SHORT).show();
         } else { // Chat exists. Reference it.
             chatThreadReference = databaseReference.child("chats").child(chatThreadID);
         }
