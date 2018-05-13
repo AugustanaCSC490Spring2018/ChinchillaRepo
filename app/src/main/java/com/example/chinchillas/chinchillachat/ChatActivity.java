@@ -94,7 +94,7 @@ public class ChatActivity extends ChinchillaChatActivity {
                 databaseReference.child("usernames").child(name).child("myChats").child(chatThreadID).setValue(otherChatMembersList).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ChatActivity.this, "Unable to make chat with those people.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ChatActivity.this, "Unable to create chat.", Toast.LENGTH_LONG).show();
                         failedToCreateChat(chatMembersList);
                         ChatActivity.this.finish();
                     }
